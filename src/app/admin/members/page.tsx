@@ -16,7 +16,7 @@ type Row = {
   created_at: string;
   subscriptions: { status: string; current_period_end: string | null }[];
   documents: { count: number }[];
-  applications: { count: number }[];
+  applications: { id: string }[];
 };
 
 export default async function MembersPage({
@@ -29,7 +29,7 @@ export default async function MembersPage({
   let query = supabase
     .from("profiles")
     .select(
-      "id, email, full_name, role, nationality, field_of_interest, onboarding_completed_at, created_at, subscriptions(status, current_period_end), documents!documents_user_id_fkey(count), applications(count)",
+      "id, email, full_name, role, nationality, field_of_interest, onboarding_completed_at, created_at, subscriptions(status, current_period_end), documents!documents_user_id_fkey(count), applications(id)",
     )
     .order("created_at", { ascending: false })
     .limit(500);
@@ -90,7 +90,7 @@ export default async function MembersPage({
                 <td className="px-4 py-3 text-sm text-ink-soft">{r.onboarding_completed_at ? r.field_of_interest : <Pill>No profile</Pill>}</td>
                 <td className="px-4 py-3">{sub ? <Pill tone={subTone(sub.status)}>{subscriptionStatusLabels[sub.status] ?? sub.status}</Pill> : <Pill>None</Pill>}</td>
                 <td className="px-4 py-3 text-ink-soft">{r.documents[0]?.count ?? 0}</td>
-                <td className="px-4 py-3 text-ink-soft">{r.applications[0]?.count ?? 0}</td>
+                <td className="px-4 py-3 text-ink-soft">{r.applications.length}</td>
                 <td className="px-4 py-3 text-sm text-ink-soft">{fmtDate(r.created_at)}</td>
               </tr>
             );
