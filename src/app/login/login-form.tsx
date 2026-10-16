@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { AuthShell, FormError } from "@/components/auth-shell";
 import { Button, Field, inputClass } from "@/components/ui";
+import { Turnstile, type TurnstileHandle } from "@/components/turnstile";
 
 export function LoginForm() {
   const params = useSearchParams();
@@ -15,18 +16,23 @@ export function LoginForm() {
     params.get("error") === "link" ? "That link has expired or was already used. Please log in or request a new one." : null,
   );
   const [loading, setLoading] = useState(false);
+  const [captcha, setCaptcha] = useState<string | null>(null);
+  const captchaRef = useRef<TurnstileHandle>(null);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError(null);
+    if (!captcha) return setError("Please complete the security check.");
     setLoading(true);
     const form = new FormData(e.currentTarget);
     const supabase = createClient();
     const { error } = await supabase.auth.signInWithPassword({
       email: String(form.get("email")).trim(),
       password: String(form.get("password")),
+      options: { captchaToken: captcha },
     });
     if (error) {
+      captchaRef.current?.reset();
       setLoading(false);
       setError(error.message === "Invalid login credentials" ? "Wrong email or password." : error.message);
       return;
@@ -46,6 +52,7 @@ export function LoginForm() {
         <Field label="Password">
           <input name="password" type="password" required autoComplete="current-password" className={inputClass} />
         </Field>
+        <Turnstile ref={captchaRef} onToken={setCaptcha} />
         <FormError message={error} />
         <Button type="submit" disabled={loading} className="w-full">
           {loading ? "Logging in…" : "Log in"}

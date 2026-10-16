@@ -1,16 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { site } from "@/config/site";
 import { AuthShell, FormError } from "@/components/auth-shell";
 import { Button, Field, inputClass } from "@/components/ui";
+import { Turnstile, type TurnstileHandle } from "@/components/turnstile";
 
 export default function SignupPage() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [sentTo, setSentTo] = useState<string | null>(null);
+  const [captcha, setCaptcha] = useState<string | null>(null);
+  const captchaRef = useRef<TurnstileHandle>(null);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -29,6 +32,10 @@ export default function SignupPage() {
       return;
     }
 
+    if (!captcha) {
+      setError("Please complete the security check.");
+      return;
+    }
     setLoading(true);
     const supabase = createClient();
     const { data, error } = await supabase.auth.signUp({
@@ -36,6 +43,7 @@ export default function SignupPage() {
       password,
       options: {
         emailRedirectTo: `${window.location.origin}/auth/callback?next=/subscribe`,
+        captchaToken: captcha,
         data: {
           full_name: fullName,
           accepted_terms: "true",
@@ -47,6 +55,7 @@ export default function SignupPage() {
     setLoading(false);
 
     if (error) {
+      captchaRef.current?.reset();
       setError(error.message);
       return;
     }
@@ -100,6 +109,7 @@ export default function SignupPage() {
           </label>
         </div>
 
+        <Turnstile ref={captchaRef} onToken={setCaptcha} />
         <FormError message={error} />
         <Button type="submit" disabled={loading} className="w-full">
           {loading ? "Creating account…" : "Create account"}
