@@ -78,12 +78,14 @@ export default async function ProgrammesDatabase({ searchParams }: { searchParam
             {scope === "eligible" && profile.onboarding_completed_at
               ? `Showing programmes at your level (${myLevels.map((l) => levelLabels[l]).join(", ")}).`
               : "Showing every English-taught programme in our database."}{" "}
+            {profile.onboarding_completed_at && (
             <Link
               href={{ query: { ...sp, scope: scope === "eligible" ? "all" : "eligible" } }}
               className="text-sea underline underline-offset-4"
             >
               {scope === "eligible" ? "Show all levels" : "Only my level"}
             </Link>
+            )}
           </p>
         </div>
       </div>

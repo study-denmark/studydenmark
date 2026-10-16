@@ -1,7 +1,7 @@
 export const levelLabels = {
   academy_profession: "AP degree",
   top_up: "Top-up bachelor",
-  professional_bachelor: "Professional bachelor",
+  professional_bachelor: "Prof. bachelor",
   bachelor: "University bachelor",
   master: "Master’s degree",
 } as const;

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requireSubscriber } from "@/lib/auth";
+import { createClient } from "@/lib/supabase/server";
 import { matchProgramme, tierLabels } from "@/lib/matching";
 import { levelLabels } from "@/lib/labels";
 import { EDUCATION_LEVELS } from "@/lib/constants";
@@ -25,7 +26,9 @@ const fmtDate = (d: string | null) =>
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  return { title: slug.replace(/-/g, " ") };
+  const supabase = await createClient();
+  const { data } = await supabase.from("programmes").select("title").eq("slug", slug).maybeSingle();
+  return { title: data?.title ?? "Programme" };
 }
 
 export default async function ProgrammePage({ params }: { params: Promise<{ slug: string }> }) {
@@ -98,7 +101,7 @@ export default async function ProgrammePage({ params }: { params: Promise<{ slug
 
         <Section title="English requirement">
           <p>
-            {p.min_ielts != null && <>IELTS Academic {p.min_ielts}</>}
+            {p.min_ielts != null && <>IELTS Academic {Number(p.min_ielts).toFixed(1)}</>}
             {p.min_ielts != null && p.min_toefl != null && " or "}
             {p.min_toefl != null && <>TOEFL iBT {p.min_toefl}</>}
             {p.min_ielts == null && p.min_toefl == null && "Not listed yet."}
@@ -163,7 +166,11 @@ export default async function ProgrammePage({ params }: { params: Promise<{ slug
 
       <aside className="lg:pt-10">
         <Card className="lg:sticky lg:top-24">
-          {m.eligibleLevel ? (
+          {!s.onboarding_completed_at ? (
+            <Link href="/onboarding" className="rounded-full bg-paper px-2.5 py-1 text-xs font-semibold text-ink underline">
+              Complete your profile to see your match
+            </Link>
+          ) : m.eligibleLevel ? (
             <span className="rounded-full bg-sea-soft px-2.5 py-1 text-xs font-semibold text-sea">{tierLabels[m.tier]}</span>
           ) : (
             <span className="rounded-full bg-accent-soft px-2.5 py-1 text-xs font-semibold text-accent">

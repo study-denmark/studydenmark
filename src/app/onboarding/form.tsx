@@ -17,7 +17,7 @@ type Initial = Record<
   string
 >;
 
-const selectClass = `${inputClass} appearance-none bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%228%22><path d=%22M1 1l5 5 5-5%22 fill=%22none%22 stroke=%22%236b7385%22 stroke-width=%221.6%22/></svg>')] bg-[length:12px] bg-[right_1rem_center] bg-no-repeat pr-10`;
+const selectClass = `${inputClass} pr-10`;
 
 export function OnboardingForm({
   firstTime,

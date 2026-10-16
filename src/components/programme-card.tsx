@@ -62,7 +62,7 @@ function Fact({ k, v }: { k: string; v: string }) {
   return (
     <div className="min-w-0 rounded-lg bg-paper px-2.5 py-2">
       <dt className="text-[11px] text-muted">{k}</dt>
-      <dd className="truncate font-medium">{v}</dd>
+      <dd className="font-medium leading-tight [overflow-wrap:anywhere]">{v}</dd>
     </div>
   );
 }
