@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+/* Scandinavian, light, trustworthy. One accent (Danish red), used sparingly. */
+@theme {
+  --color-paper: #f7f5f0;
+  --color-surface: #ffffff;
+  --color-ink: #14213d;
+  --color-ink-soft: #3b4660;
+  --color-muted: #6b7385;
+  --color-line: #e4e0d6;
+  --color-accent: #c8102e;
+  --color-accent-soft: #fbe9ec;
+  --color-sea: #2f5d62;
+  --color-sea-soft: #e6efee;
+  --color-ok: #2e7d4f;
+
+  --font-display: "Fraunces Variable", Georgia, serif;
+  --font-sans: "Inter Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --radius-card: 14px;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "cv11", "ss01";
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 96, "SOFT" 30;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+::selection {
+  background: var(--color-accent-soft);
+}
+
+/* Long-form guide pages */
+.prose-guide {
+  color: var(--color-ink-soft);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+.prose-guide > h2 {
+  color: var(--color-ink);
+  font-size: 1.6rem;
+  line-height: 1.25;
+  margin-top: 2.75rem;
+  margin-bottom: 0.75rem;
+}
+.prose-guide > h3 {
+  color: var(--color-ink);
+  font-size: 1.2rem;
+  margin-top: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+.prose-guide > p {
+  margin-bottom: 1rem;
+}
+.prose-guide > ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+  margin-bottom: 1rem;
+}
+.prose-guide > ul > li {
+  margin-bottom: 0.4rem;
+}
+.prose-guide a {
+  color: var(--color-sea);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.prose-guide strong {
+  color: var(--color-ink);
+  font-weight: 600;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-sea);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
