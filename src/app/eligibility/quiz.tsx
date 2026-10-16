@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
-import { levelLabels, type ProgrammeLevel } from "@/lib/labels";
+import { levelLabels } from "@/lib/labels";
+import { eligibleLevels } from "@/lib/constants";
 import { site } from "@/config/site";
 
 type Answers = {
@@ -74,20 +75,6 @@ const questions: Question[] = [
     ],
   },
 ];
-
-function eligibleLevels(education: Answers["education"]): ProgrammeLevel[] {
-  switch (education) {
-    case "upper_secondary":
-      return ["academy_profession", "professional_bachelor", "bachelor"];
-    case "academy_profession":
-      return ["top_up", "professional_bachelor", "bachelor"];
-    case "bachelor":
-    case "master":
-      return ["master"];
-    default:
-      return [];
-  }
-}
 
 export function EligibilityQuiz() {
   const [step, setStep] = useState(0);
