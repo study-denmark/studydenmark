@@ -42,9 +42,10 @@ export default async function ProgrammePage({ params }: { params: Promise<{ slug
     .maybeSingle<ProgrammeWithInstitution>();
   if (!p) notFound();
 
-  const [{ data: docs }, { data: saved }] = await Promise.all([
+  const [{ data: docs }, { data: saved }, { data: application }] = await Promise.all([
     supabase.from("programme_required_documents").select("document_type, note").eq("programme_id", p.id),
     supabase.from("saved_programmes").select("programme_id").eq("user_id", user!.id).eq("programme_id", p.id),
+    supabase.from("applications").select("id, stage").eq("user_id", user!.id).eq("programme_id", p.id).maybeSingle(),
   ]);
 
   const s = profile as StudentProfile;
@@ -193,11 +194,17 @@ export default async function ProgrammePage({ params }: { params: Promise<{ slug
           </ul>
 
           <div className="mt-6 flex flex-col gap-3">
+            {application ? (
+              <Link href="/dashboard/applications" className="rounded-full bg-sea-soft px-5 py-3 text-center font-medium text-sea">
+                ✓ Application in progress – view status
+              </Link>
+            ) : p.is_published ? (
+              <Link href={`/dashboard/apply/${p.slug}`} className="rounded-full bg-accent px-5 py-3 text-center font-medium text-white hover:bg-[#a50d26]">
+                Apply with our help
+              </Link>
+            ) : null}
             <SaveButton programmeId={p.id} saved={!!saved?.length} withLabel />
-            <p className="rounded-lg bg-paper px-3 py-2.5 text-xs text-ink-soft">
-              <strong className="text-ink">Apply with our help – coming soon.</strong> Save this programme now and
-              you’ll be able to upload documents and apply from your dashboard.
-            </p>
+            <p className="text-xs text-muted">Included in your membership. We check your documents and send the application for you.</p>
           </div>
         </Card>
       </aside>

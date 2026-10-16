@@ -7,6 +7,8 @@ const items = [
   { href: "/dashboard", label: "Overview" },
   { href: "/dashboard/programmes", label: "All programmes" },
   { href: "/dashboard/saved", label: "Saved" },
+  { href: "/dashboard/documents", label: "Documents" },
+  { href: "/dashboard/applications", label: "Applications" },
   { href: "/onboarding", label: "My profile" },
 ];
 

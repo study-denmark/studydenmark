@@ -36,13 +36,10 @@ export async function deleteAccount(formData: FormData) {
   }
 
   // 2. Delete uploaded files
-  const { data: files } = await admin.storage.from("student-documents").list(user.id, {
-    limit: 1000,
-  });
-  if (files?.length) {
-    await admin.storage
-      .from("student-documents")
-      .remove(files.map((f) => `${user.id}/${f.name}`));
+  const { data: files } = await admin.from("documents").select("storage_path").eq("user_id", user.id);
+  const paths = (files ?? []).map((f) => f.storage_path as string);
+  for (let i = 0; i < paths.length; i += 100) {
+    await admin.storage.from("student-documents").remove(paths.slice(i, i + 100));
   }
 
   // 3. Delete the auth user — cascades to profile, documents, applications, consents

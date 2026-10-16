@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { APPLICATION_COLUMNS } from "@/lib/documents";
 
 // GDPR art. 15/20: let the user download everything we hold about them.
 // Uses the user's own session, so RLS guarantees only their rows are returned.
@@ -27,7 +28,7 @@ export async function GET() {
   };
 
   for (const table of tables) {
-    const { data } = await supabase.from(table).select("*");
+    const { data } = await supabase.from(table).select(table === "applications" ? APPLICATION_COLUMNS : "*");
     result[table] = data ?? [];
   }
 
