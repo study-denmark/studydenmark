@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/config/site";
 import { ButtonLink, Card, Container, Eyebrow } from "@/components/ui";
@@ -56,34 +57,35 @@ export default function Home() {
             </ul>
           </div>
 
-          {/* Visual: a sample match card */}
+          {/* Visual: photo with a sample match card on top */}
           <div className="relative">
-            <div className="absolute -right-24 -top-16 h-80 w-80 rounded-full bg-sea-soft blur-2xl" aria-hidden />
-            <Card className="relative shadow-[0_30px_60px_-30px_rgba(20,33,61,0.25)]">
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">Your profile</p>
-              <div className="mt-3 grid grid-cols-2 gap-3 text-sm">
-                <Stat k="Nationality" v="India" />
-                <Stat k="Education" v="High school" />
-                <Stat k="IELTS" v="6.5" />
-                <Stat k="Start" v="September" />
-              </div>
-              <div className="my-5 h-px bg-line" />
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">You can apply for</p>
-              <ul className="mt-3 space-y-2.5">
+            <div className="relative ml-auto aspect-[4/5] w-full overflow-hidden rounded-[18px] bg-sea-soft md:w-[84%]">
+              <Image
+                src="/images/hero-copenhagen.jpg"
+                alt="A student cycling along the harbour in Nyhavn, Copenhagen"
+                fill
+                priority
+                sizes="(min-width: 1024px) 460px, (min-width: 768px) 70vw, 100vw"
+                className="object-cover"
+              />
+            </div>
+            <Card className="relative mx-4 -mt-16 shadow-[0_30px_60px_-30px_rgba(20,33,61,0.35)] md:absolute md:left-0 md:top-[24%] md:mx-0 md:mt-0 md:w-[300px]">
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">With IELTS 6.5 and a high school diploma, you can apply for</p>
+              <ul className="mt-3 space-y-2">
                 {[
-                  ["Academy Profession (AP) degrees", "2 years"],
-                  ["Professional bachelor's degrees", "3.5 years"],
-                  ["University bachelor's degrees", "3 years"],
+                  ["AP degrees", "2 years"],
+                  ["Professional bachelor", "3.5 years"],
+                  ["University bachelor", "3 years"],
                 ].map(([t, d]) => (
-                  <li key={t} className="flex items-center justify-between rounded-lg bg-paper px-3 py-2.5 text-sm">
+                  <li key={t} className="flex items-center justify-between rounded-lg bg-paper px-3 py-2 text-sm">
                     <span className="font-medium">{t}</span>
                     <span className="text-muted">{d}</span>
                   </li>
                 ))}
               </ul>
-              <div className="mt-5 rounded-lg border border-accent/20 bg-accent-soft px-3 py-2.5 text-sm">
-                <span className="font-semibold text-accent">Deadline:</span> 15 March, 12:00 noon (Danish time)
-              </div>
+              <p className="mt-3 text-sm">
+                <span className="font-semibold text-accent">Deadline:</span> 15 March, 12:00 (Danish time)
+              </p>
             </Card>
           </div>
         </Container>
@@ -177,15 +179,6 @@ export default function Home() {
         </Container>
       </section>
     </>
-  );
-}
-
-function Stat({ k, v }: { k: string; v: string }) {
-  return (
-    <div className="rounded-lg bg-paper px-3 py-2">
-      <p className="text-xs text-muted">{k}</p>
-      <p className="font-medium">{v}</p>
-    </div>
   );
 }
 
