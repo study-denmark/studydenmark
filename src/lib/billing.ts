@@ -56,15 +56,18 @@ export async function syncSubscription(subOrId: Stripe.Subscription | string) {
 export async function recordInvoice(invoice: Stripe.Invoice) {
   if (!invoice.id || !invoice.customer) return;
   const admin = createAdminClient();
-  const { data: profile } = await admin
-    .from("profiles")
-    .select("id")
-    .eq("stripe_customer_id", customerId(invoice.customer))
-    .maybeSingle();
+  const cus = customerId(invoice.customer);
+  const { data: profile } = await admin.from("profiles").select("id").eq("stripe_customer_id", cus).maybeSingle();
+  let userId = profile?.id ?? null;
+  if (!userId) {
+    // Fall back to the subscription row, which always stores the customer id
+    const { data: sub } = await admin.from("subscriptions").select("user_id").eq("stripe_customer_id", cus).limit(1).maybeSingle();
+    userId = sub?.user_id ?? null;
+  }
 
   const { error } = await admin.from("payments").upsert(
     {
-      user_id: profile?.id ?? null,
+      user_id: userId,
       stripe_invoice_id: invoice.id,
       amount_cents: invoice.amount_paid || invoice.amount_due,
       currency: invoice.currency,
@@ -92,6 +95,7 @@ export async function getOrCreateCustomer(userId: string, email: string) {
     name: profile?.full_name ?? undefined,
     metadata: { user_id: userId },
   });
-  await admin.from("profiles").update({ stripe_customer_id: customer.id }).eq("id", userId);
+  const { error } = await admin.from("profiles").update({ stripe_customer_id: customer.id }).eq("id", userId);
+  if (error) throw new Error(`Could not save Stripe customer on profile: ${error.message}`);
   return customer.id;
 }
