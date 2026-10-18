@@ -178,8 +178,8 @@ export default function Home() {
             {[
               ["/eu-vs-non-eu", "EU/EEA vs. non-EU", "Who pays tuition, and who needs a residence permit.", "/images/guide-eu.jpg"],
               ["/admission-requirements", "Admission requirements", "What your diploma and English score need to show.", "/images/guide-requirements.jpg"],
-              ["/deadlines", "Deadlines", "The key dates for September and February intake.", ""],
-              ["/cost-of-living", "Cost of living", "Rent, food, transport and what you can earn.", ""],
+              ["/deadlines", "Deadlines", "The key dates for September and February intake.", "/images/guide-deadlines.jpg"],
+              ["/cost-of-living", "Cost of living", "Rent, food, transport and what you can earn.", "/images/guide-cost.jpg"],
             ].map(([href, title, body, img]) => (
               <Link key={href} href={href} className="group overflow-hidden rounded-[var(--radius-card)] border border-line bg-surface transition-colors hover:border-ink/30">
                 <div className="relative aspect-[4/3] bg-sea-soft">
