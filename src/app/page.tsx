@@ -111,6 +111,17 @@ export default function Home() {
         </Container>
       </section>
 
+      {/* Photo band */}
+      <section aria-hidden="true" className="relative h-[240px] sm:h-[340px] lg:h-[420px]">
+        <Image
+          src="/images/library-band.jpg"
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover object-[center_62%]"
+        />
+      </section>
+
       {/* How it works */}
       <section>
         <Container className="py-20">
