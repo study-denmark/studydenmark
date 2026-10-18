@@ -18,12 +18,13 @@ export default async function AdminHome() {
   ]);
   const [institutions, partners, programmes, published, students, onboarded, active, premium] = results.map((r) => r.count ?? 0);
 
-  const [{ data: apps }, pending] = await Promise.all([
+  const [{ data: apps }, pending, { data: lastRun }] = await Promise.all([
     supabase
       .from("applications")
       .select("stage, institutions(name, is_partner), application_admin(commission_status, commission_amount_eur)")
       .returns<{ stage: string; institutions: { name: string; is_partner: boolean } | null; application_admin: { commission_status: string; commission_amount_eur: number | null } | null }[]>(),
     supabase.from("documents").select("*", head).eq("status", "uploaded"),
+    supabase.from("retention_runs").select("ran_at, documents_deleted, users_deleted, errors").order("ran_at", { ascending: false }).limit(1).maybeSingle(),
   ]);
   type Agg = { requests: number; sent: number; admitted: number; started: number; expected: number; invoiced: number; paid: number };
   const bySchool = new Map<string, Agg>();
@@ -88,6 +89,13 @@ export default async function AdminHome() {
           </Table>
         </div>
       </section>
+
+      <p className="text-sm text-muted">
+        Automatic deletion (documents 12 months after membership ends, inactive accounts after 24 months):{" "}
+        {lastRun
+          ? `last run ${new Date(lastRun.ran_at).toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short", timeZone: "Europe/Copenhagen" })} – ${lastRun.documents_deleted} documents, ${lastRun.users_deleted} accounts deleted${lastRun.errors ? " (with errors – see Vercel logs)" : ""}.`
+          : "runs daily at 03:00 UTC, not run yet."}
+      </p>
 
       <Card>
         <h2 className="text-lg font-semibold">Getting data in</h2>

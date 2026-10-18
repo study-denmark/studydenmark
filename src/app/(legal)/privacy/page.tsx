@@ -131,12 +131,12 @@ export default function PrivacyPage() {
         <h2>5. How long we keep your data</h2>
         <ul>
           <li>
-            <strong>Account and profile:</strong> as long as you have an account. If your membership has ended and you
-            haven’t logged in for 24 months, we delete your account.
+            <strong>Account and profile:</strong> as long as you have an account. If you have had no active membership
+            and haven’t logged in for 24 months, we delete your account automatically.
           </li>
           <li>
-            <strong>Uploaded documents:</strong> until you delete them, and no later than 12 months after your membership
-            ends.
+            <strong>Uploaded documents:</strong> until you delete them, and automatically no later than 12 months after
+            your membership ends.
           </li>
           <li>
             <strong>Applications, consents and the share log:</strong> as long as you have an account, so we can document
