@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import "@fontsource-variable/fraunces/full.css";
-import "@fontsource-variable/inter";
+import "@fontsource-variable/newsreader/opsz.css";
+import "@fontsource-variable/newsreader/opsz-italic.css";
+import "@fontsource-variable/public-sans";
+import "@fontsource-variable/public-sans/wght-italic.css";
 import "./globals.css";
 import { site } from "@/config/site";
 import { SiteHeader } from "@/components/site-header";
