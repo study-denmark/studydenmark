@@ -177,7 +177,7 @@ export default function Home() {
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
               ["/eu-vs-non-eu", "EU/EEA vs. non-EU", "Who pays tuition, and who needs a residence permit.", "/images/guide-eu.jpg"],
-              ["/admission-requirements", "Admission requirements", "What your diploma and English score need to show.", ""],
+              ["/admission-requirements", "Admission requirements", "What your diploma and English score need to show.", "/images/guide-requirements.jpg"],
               ["/deadlines", "Deadlines", "The key dates for September and February intake.", ""],
               ["/cost-of-living", "Cost of living", "Rent, food, transport and what you can earn.", ""],
             ].map(([href, title, body, img]) => (
