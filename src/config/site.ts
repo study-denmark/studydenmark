@@ -6,7 +6,7 @@ export const site = {
   description:
     "Personal guidance for international students: entry requirements, English-taught programmes, deadlines and help collecting your application documents.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
-  contactEmail: "bk@veritas-group.dk", // TODO: replace with a study-denmark.com address
+  contactEmail: "hello@study-denmark.com",
   // The business behind the site. Shown in Terms, Privacy and the footer.
   company: {
     name: "Study Denmark",
