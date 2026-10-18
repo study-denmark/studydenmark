@@ -29,7 +29,7 @@ export async function startCheckout(formData: FormData) {
     mode: "subscription",
     customer,
     client_reference_id: user.id,
-    line_items: [{ price: priceIdFor(plan), quantity: 1 }],
+    line_items: [{ price: await priceIdFor(plan), quantity: 1 }],
     subscription_data: { metadata: { user_id: user.id, plan } },
     allow_promotion_codes: true,
     automatic_tax: { enabled: process.env.STRIPE_AUTOMATIC_TAX === "true" },
@@ -63,7 +63,7 @@ export async function upgradeToPremium() {
   let updated;
   try {
     updated = await s.subscriptions.update(sub.id, {
-      items: [{ id: item.id, price: priceIdFor("premium") }],
+      items: [{ id: item.id, price: await priceIdFor("premium") }],
       proration_behavior: "always_invoice",
       payment_behavior: "pending_if_incomplete",
     });
@@ -83,7 +83,7 @@ async function startCheckoutFresh(userId: string, email: string) {
     mode: "subscription",
     customer,
     client_reference_id: userId,
-    line_items: [{ price: priceIdFor("premium"), quantity: 1 }],
+    line_items: [{ price: await priceIdFor("premium"), quantity: 1 }],
     subscription_data: { metadata: { user_id: userId, plan: "premium" } },
     allow_promotion_codes: true,
     automatic_tax: { enabled: process.env.STRIPE_AUTOMATIC_TAX === "true" },

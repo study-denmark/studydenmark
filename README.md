@@ -40,8 +40,9 @@ Sikkerhed er testet: studerende ser kun egne data, kan ikke gøre sig selv til a
 
 ### 2. Stripe (start i testmode)
 1. Opret to produkter med **tilbagevendende årlig pris**:
-   - "Basic" 100 DKK → kopier `price_...` til `STRIPE_PRICE_ID_BASIC`
-   - "Premium" 500 DKK → kopier `price_...` til `STRIPE_PRICE_ID_PREMIUM`
+   - "StudyDenmark Basic" 100 DKK → kopier `prod_...` til `STRIPE_PRODUCT_ID_BASIC`
+   - "StudyDenmark Premium" 500 DKK → kopier `prod_...` til `STRIPE_PRODUCT_ID_PREMIUM`
+   (Produktets standardpris bruges. Alternativt kan `STRIPE_PRICE_ID_BASIC` / `STRIPE_PRICE_ID_PREMIUM` sættes med `price_...`.)
    Opgradering Basic → Premium trækker kun forskellen for resten af året (proration).
 2. Developers → API keys → `STRIPE_SECRET_KEY`.
 3. Developers → Webhooks → tilføj endpoint `https://jeres-domæne.dk/api/stripe/webhook` med events:
