@@ -7,13 +7,13 @@ export const site = {
     "Personal guidance for international students: entry requirements, English-taught programmes, deadlines and help collecting your application documents.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   contactEmail: "hello@example.com",
-  // Display only. The real prices come from the Stripe price IDs in .env
+  // Display only. The real prices are the default prices of the Stripe products in .env (in EUR)
   plans: {
-    basic: { name: "Basic", amountLabel: "DKK 100", approxEur: "≈ €13", interval: "year" },
-    premium: { name: "Premium", amountLabel: "DKK 500", approxEur: "≈ €67", interval: "year" },
+    basic: { name: "Basic", amountLabel: "€12.95", approx: "≈ DKK 97", interval: "year" },
+    premium: { name: "Premium", amountLabel: "€66.95", approx: "≈ DKK 500", interval: "year" },
   },
-  // Cheapest plan, used in "from DKK 100" texts
-  price: { amountLabel: "DKK 100", approxEur: "≈ €13", interval: "year" },
+  // Cheapest plan, used in "from €12.95" texts
+  price: { amountLabel: "€12.95", approx: "≈ DKK 97", interval: "year" },
   // Bump this when Terms / Privacy text changes. Stored with every consent.
   consentVersion: "v1-2026-10",
 } as const;

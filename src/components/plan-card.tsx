@@ -24,7 +24,7 @@ export function PlanCard({ plan, highlight, children }: { plan: Plan; highlight?
       <p className="mt-1 text-[15px] text-ink-soft">{blurb[plan]}</p>
       <p className="mt-5 font-[family-name:var(--font-display)] text-5xl font-semibold">{p.amountLabel}</p>
       <p className="mt-1 text-sm text-muted">
-        per {p.interval} · {p.approxEur} · renews yearly
+        per {p.interval} · renews yearly
       </p>
       <ul className="mt-7 space-y-3 text-[15px]">
         {planFeatures[plan].map((f) => (
