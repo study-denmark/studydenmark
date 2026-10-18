@@ -6,7 +6,7 @@ export const site = {
   description:
     "Personal guidance for international students: entry requirements, English-taught programmes, deadlines and help collecting your application documents.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
-  contactEmail: "hello@example.com",
+  contactEmail: "bk@veritas-group.dk", // TODO: replace with a study-denmark.com address
   // Display only. The real prices are the default prices of the Stripe products in .env (in EUR)
   plans: {
     basic: { name: "Basic", amountLabel: "€12.95", approx: "≈ DKK 97", interval: "year" },
