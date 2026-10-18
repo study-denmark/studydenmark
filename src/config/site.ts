@@ -7,6 +7,12 @@ export const site = {
     "Personal guidance for international students: entry requirements, English-taught programmes, deadlines and help collecting your application documents.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   contactEmail: "bk@veritas-group.dk", // TODO: replace with a study-denmark.com address
+  // The business behind the site. Shown in Terms, Privacy and the footer.
+  company: {
+    name: "Study Denmark",
+    cvr: null as string | null, // TODO: add when registered
+    address: "Willemoesgade 16a, 6700 Esbjerg, Denmark",
+  },
   // Display only. The real prices are the default prices of the Stripe products in .env (in EUR)
   plans: {
     basic: { name: "Basic", amountLabel: "€12.95", approx: "≈ DKK 97", interval: "year" },
@@ -15,7 +21,7 @@ export const site = {
   // Cheapest plan, used in "from €12.95" texts
   price: { amountLabel: "€12.95", approx: "≈ DKK 97", interval: "year" },
   // Bump this when Terms / Privacy text changes. Stored with every consent.
-  consentVersion: "v1-2026-10",
+  consentVersion: "2026-10-18",
 } as const;
 
 export const officialSources = {

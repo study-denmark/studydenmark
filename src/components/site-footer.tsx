@@ -46,7 +46,8 @@ export function SiteFooter() {
         </div>
       </Container>
       <Container className="border-t border-line py-6 text-xs text-muted">
-        © {new Date().getFullYear()} {site.name}. Partner institutions are always labelled “Partner”.
+        © {new Date().getFullYear()} {site.company.name} · {site.company.address} ·{" "}
+        {site.company.cvr ? `CVR ${site.company.cvr}` : "CVR registration pending"}. Partner institutions are always labelled “Partner”.
       </Container>
     </footer>
   );
