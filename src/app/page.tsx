@@ -59,7 +59,7 @@ export default function Home() {
 
           {/* Visual: photo with a sample match card on top */}
           <div className="relative">
-            <div className="relative ml-auto aspect-[4/5] w-full overflow-hidden rounded-[18px] bg-sea-soft md:w-[84%]">
+            <div className="relative ml-auto aspect-[4/5] w-full overflow-hidden rounded-[18px] bg-sea-soft md:w-[86%]">
               <Image
                 src="/images/hero-copenhagen.jpg"
                 alt="A student cycling along the harbour in Nyhavn, Copenhagen"
@@ -69,24 +69,25 @@ export default function Home() {
                 className="object-cover"
               />
             </div>
-            <Card className="relative mx-4 -mt-16 shadow-[0_30px_60px_-30px_rgba(20,33,61,0.35)] md:absolute md:left-0 md:top-[24%] md:mx-0 md:mt-0 md:w-[300px]">
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">With IELTS 6.5 and a high school diploma, you can apply for</p>
-              <ul className="mt-3 space-y-2">
+            <div className="relative mx-4 -mt-16 rounded-[var(--radius-card)] border border-line bg-surface p-4 shadow-[0_30px_60px_-30px_rgba(20,33,61,0.35)] md:absolute md:-top-6 md:left-0 md:mx-0 md:mt-0 md:w-[236px]">
+              <p className="text-[11px] text-muted">Example: high school + IELTS 6.5</p>
+              <p className="mt-0.5 text-xs font-semibold uppercase tracking-[0.12em] text-ink">You can apply for</p>
+              <ul className="mt-2.5 space-y-1.5">
                 {[
-                  ["AP degrees", "2 years"],
-                  ["Professional bachelor", "3.5 years"],
-                  ["University bachelor", "3 years"],
+                  ["AP degree", "2 yrs"],
+                  ["Prof. bachelor", "3.5 yrs"],
+                  ["University bachelor", "3 yrs"],
                 ].map(([t, d]) => (
-                  <li key={t} className="flex items-center justify-between rounded-lg bg-paper px-3 py-2 text-sm">
+                  <li key={t} className="flex items-center justify-between rounded-md bg-paper px-2.5 py-1.5 text-[13px]">
                     <span className="font-medium">{t}</span>
                     <span className="text-muted">{d}</span>
                   </li>
                 ))}
               </ul>
-              <p className="mt-3 text-sm">
-                <span className="font-semibold text-accent">Deadline:</span> 15 March, 12:00 (Danish time)
+              <p className="mt-2.5 text-[13px]">
+                <span className="font-semibold text-accent">Deadline:</span> 15 March, 12:00
               </p>
-            </Card>
+            </div>
           </div>
         </Container>
       </section>
