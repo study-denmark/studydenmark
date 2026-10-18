@@ -60,6 +60,13 @@ export default function PrivacyPage() {
             payment provider Stripe – we never see or store your card number.
           </li>
         </ul>
+        <h3>Launch waitlist</h3>
+        <ul>
+          <li>
+            If you sign up to hear when we launch: your email address and when you signed up. We only use it to email
+            you about the launch.
+          </li>
+        </ul>
         <h3>Technical data</h3>
         <ul>
           <li>
@@ -87,6 +94,10 @@ export default function PrivacyPage() {
           <li>
             <strong>To keep the service secure</strong> – preventing bots, fraud and misuse. Legal basis: our legitimate
             interest in protecting the service and our users (art. 6(1)(f)).
+          </li>
+          <li>
+            <strong>To tell you when we launch</strong>, if you joined the waitlist. Legal basis: consent (art. 6(1)(a)).
+            Email us and we will remove you right away.
           </li>
           <li>
             <strong>To send you our newsletter</strong>, only if you ticked the box. You can unsubscribe at any time.
@@ -146,6 +157,7 @@ export default function PrivacyPage() {
             <strong>Payment and accounting records:</strong> 5 years from the end of the financial year, as required by
             the Danish Bookkeeping Act.
           </li>
+          <li><strong>Waitlist sign-ups:</strong> deleted automatically no later than 12 months after you signed up.</li>
           <li><strong>Server logs:</strong> a short period, normally no more than 30 days.</li>
         </ul>
         <p>

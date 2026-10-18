@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/config/site";
+import { WaitlistForm } from "@/components/waitlist-form";
 
 export const metadata: Metadata = {
   title: "Coming soon",
@@ -31,6 +32,9 @@ export default function ComingSoon() {
               We’re building the simplest way for international students to find out what they can study in Denmark – and
               get help applying. Opening very soon.
             </p>
+            <div className="mt-10">
+              <WaitlistForm />
+            </div>
             <p className="mt-8 text-[15px] text-ink-soft">
               Questions in the meantime?{" "}
               <a className="font-medium text-sea underline underline-offset-4" href={`mailto:${site.contactEmail}`}>

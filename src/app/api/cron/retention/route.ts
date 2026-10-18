@@ -54,6 +54,12 @@ export async function GET(req: Request) {
     else errors.push(`user ${u.user_id}: ${res.error}`);
   }
 
+  // 3) Waitlist sign-ups older than 12 months
+  const cutoff = new Date();
+  cutoff.setFullYear(cutoff.getFullYear() - 1);
+  const { error: wlErr } = await admin.from("waitlist").delete().lt("created_at", cutoff.toISOString());
+  if (wlErr) errors.push(`waitlist delete: ${wlErr.message}`);
+
   await admin.from("retention_runs").insert({
     documents_deleted: documentsDeleted,
     users_deleted: usersDeleted,
