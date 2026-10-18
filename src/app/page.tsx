@@ -176,15 +176,22 @@ export default function Home() {
           <h2 className="text-3xl font-semibold sm:text-4xl">Start with the basics</h2>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              ["/eu-vs-non-eu", "EU/EEA vs. non-EU", "Who pays tuition, and who needs a residence permit."],
-              ["/admission-requirements", "Admission requirements", "What your diploma and English score need to show."],
-              ["/deadlines", "Deadlines", "The key dates for September and February intake."],
-              ["/cost-of-living", "Cost of living", "Rent, food, transport and what you can earn."],
-            ].map(([href, title, body]) => (
-              <Link key={href} href={href} className="group rounded-[var(--radius-card)] border border-line bg-surface p-6 transition-colors hover:border-ink/30">
-                <h3 className="text-lg font-semibold">{title}</h3>
-                <p className="mt-2 text-sm text-ink-soft">{body}</p>
-                <p className="mt-4 text-sm font-medium text-sea group-hover:text-ink">Read →</p>
+              ["/eu-vs-non-eu", "EU/EEA vs. non-EU", "Who pays tuition, and who needs a residence permit.", "/images/guide-eu.jpg"],
+              ["/admission-requirements", "Admission requirements", "What your diploma and English score need to show.", ""],
+              ["/deadlines", "Deadlines", "The key dates for September and February intake.", ""],
+              ["/cost-of-living", "Cost of living", "Rent, food, transport and what you can earn.", ""],
+            ].map(([href, title, body, img]) => (
+              <Link key={href} href={href} className="group overflow-hidden rounded-[var(--radius-card)] border border-line bg-surface transition-colors hover:border-ink/30">
+                <div className="relative aspect-[4/3] bg-sea-soft">
+                  {img && (
+                    <Image src={img} alt="" fill sizes="(min-width: 1024px) 280px, (min-width: 640px) 50vw, 100vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+                  )}
+                </div>
+                <div className="p-6">
+                  <h3 className="text-lg font-semibold">{title}</h3>
+                  <p className="mt-2 text-sm text-ink-soft">{body}</p>
+                  <p className="mt-4 text-sm font-medium text-sea group-hover:text-ink">Read →</p>
+                </div>
               </Link>
             ))}
           </div>
