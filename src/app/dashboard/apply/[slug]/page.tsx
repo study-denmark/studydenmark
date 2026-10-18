@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
-import { requireSubscriber } from "@/lib/auth";
+import { requirePremium } from "@/lib/auth";
 import { docLabel, typeStatus, type DocumentType, type StudentDocument } from "@/lib/documents";
 import { levelLabels } from "@/lib/labels";
 import { CheckIcon } from "@/components/programme-card";
@@ -12,7 +12,7 @@ export const metadata: Metadata = { title: "Apply with our help" };
 
 export default async function ApplyPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const { supabase, user, profile } = await requireSubscriber();
+  const { supabase, user, profile } = await requirePremium();
   if (!profile?.onboarding_completed_at) redirect("/onboarding");
 
   const { data: p } = await supabase

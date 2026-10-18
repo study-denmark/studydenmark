@@ -5,7 +5,8 @@ import { countryName, EDUCATION_LEVELS } from "@/lib/constants";
 import { docLabel, APPLICATION_COLUMNS } from "@/lib/documents";
 import { adminStageLabels, eur, fmtDate, Pill, subTone } from "@/lib/admin-ui";
 import { subscriptionStatusLabels } from "@/lib/labels";
-import { deleteMember, setMemberRole } from "@/app/actions/admin-ops";
+import { deleteMember, endManualMembership, grantMembership, setMemberRole } from "@/app/actions/admin-ops";
+import { planLabel, type Plan } from "@/lib/plans";
 import { Button, Callout, Card, inputClass } from "@/components/ui";
 import { DocReview } from "@/app/admin/documents/review";
 
@@ -14,17 +15,17 @@ export default async function MemberPage({
   searchParams,
 }: {
   params: Promise<{ id: string }>;
-  searchParams: Promise<{ error?: string }>;
+  searchParams: Promise<{ error?: string; granted?: string }>;
 }) {
   const { id } = await params;
-  const { error } = await searchParams;
+  const { error, granted } = await searchParams;
   const supabase = await createClient();
 
   const { data: p } = await supabase.from("profiles").select("*").eq("id", id).maybeSingle();
   if (!p) notFound();
 
   const [{ data: subs }, { data: payments }, { data: docs }, { data: apps }, { data: consents }, { data: saved }] = await Promise.all([
-    supabase.from("subscriptions").select("status, current_period_end, cancel_at_period_end, created_at").eq("user_id", id),
+    supabase.from("subscriptions").select("status, plan, stripe_subscription_id, current_period_end, cancel_at_period_end, created_at").eq("user_id", id).order("created_at", { ascending: false }),
     supabase.from("payments").select("amount_cents, currency, status, paid_at").eq("user_id", id).order("created_at", { ascending: false }),
     supabase
       .from("documents")
@@ -60,6 +61,8 @@ export default async function MemberPage({
       </div>
       {error === "self" && <Callout tone="warn">You can’t remove your own admin rights or delete yourself here.</Callout>}
       {error === "confirm" && <Callout tone="warn">Type DELETE to confirm.</Callout>}
+      {error === "grant" && <Callout tone="warn">Could not grant membership. Check that SUPABASE_SECRET_KEY is set in Vercel.</Callout>}
+      {granted && <Callout>{planLabel(granted as Plan)} granted for 12 months.</Callout>}
       {error === "delete" && <Callout tone="warn">Deleting failed. Check that SUPABASE_SECRET_KEY is set in Vercel.</Callout>}
 
       <div className="grid gap-6 lg:grid-cols-2">
@@ -83,15 +86,34 @@ export default async function MemberPage({
           {subs?.length ? (
             subs.map((s, i) => (
               <div key={i} className="mt-4 flex flex-wrap items-center gap-2 text-[15px]">
+                <Pill tone={s.plan === "premium" ? "ink" : "gray"}>{planLabel(s.plan as Plan)}</Pill>
                 <Pill tone={subTone(s.status)}>{subscriptionStatusLabels[s.status] ?? s.status}</Pill>
                 <span className="text-ink-soft">
                   {s.cancel_at_period_end ? "ends" : "renews"} {fmtDate(s.current_period_end)}
+                  {s.stripe_subscription_id.startsWith("manual_") && " · given manually"}
                 </span>
+                {s.stripe_subscription_id.startsWith("manual_") && ["active", "trialing"].includes(s.status) && (
+                  <form action={endManualMembership}>
+                    <input type="hidden" name="id" value={p.id} />
+                    <input type="hidden" name="subscription_id" value={s.stripe_subscription_id} />
+                    <button type="submit" className="text-sm text-accent underline">End now</button>
+                  </form>
+                )}
               </div>
             ))
           ) : (
             <p className="mt-4 text-ink-soft">No membership.</p>
           )}
+          <div className="mt-5 flex flex-wrap gap-2 border-t border-line pt-4">
+            {(["basic", "premium"] as const).map((plan) => (
+              <form key={plan} action={grantMembership}>
+                <input type="hidden" name="id" value={p.id} />
+                <input type="hidden" name="plan" value={plan} />
+                <Button variant="ghost" type="submit">Give {planLabel(plan)} for 12 months</Button>
+              </form>
+            ))}
+          </div>
+          <p className="mt-2 text-xs text-muted">For members who paid another way, or got it for free. No Stripe payment is made.</p>
           {payments && payments.length > 0 && (
             <ul className="mt-4 space-y-1 border-t border-line pt-4 text-sm">
               {payments.map((x, i) => (

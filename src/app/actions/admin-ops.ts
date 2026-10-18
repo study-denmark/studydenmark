@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { purgeUser } from "@/lib/purge-user";
+import { createAdminClient } from "@/lib/supabase/admin";
 
 async function requireAdmin() {
   const supabase = await createClient();
@@ -42,6 +43,50 @@ export async function deleteMember(f: FormData) {
   if (!res.ok) redirect(`/admin/members/${id}?error=delete`);
   revalidatePath("/admin", "layout");
   redirect("/admin/members?deleted=1");
+}
+
+/** Give a member Basic or Premium for 12 months without Stripe (e.g. paid by bank transfer, or free). */
+export async function grantMembership(f: FormData) {
+  await requireAdmin();
+  const id = s(f, "id");
+  const plan = s(f, "plan");
+  if (!id || (plan !== "basic" && plan !== "premium")) return;
+  const now = new Date();
+  const end = new Date(now);
+  end.setFullYear(end.getFullYear() + 1);
+  const admin = createAdminClient();
+  const { error } = await admin.from("subscriptions").insert({
+    user_id: id,
+    stripe_subscription_id: `manual_${crypto.randomUUID()}`,
+    stripe_customer_id: "manual",
+    plan,
+    status: "active",
+    current_period_start: now.toISOString(),
+    current_period_end: end.toISOString(),
+    cancel_at_period_end: true,
+  });
+  if (error) {
+    console.error("[admin] grant membership failed", error);
+    redirect(`/admin/members/${id}?error=grant`);
+  }
+  revalidatePath("/admin", "layout");
+  redirect(`/admin/members/${id}?granted=${plan}`);
+}
+
+/** End a manually granted membership right away. Stripe memberships are cancelled in Stripe instead. */
+export async function endManualMembership(f: FormData) {
+  await requireAdmin();
+  const id = s(f, "id");
+  const subId = s(f, "subscription_id");
+  if (!id || !subId?.startsWith("manual_")) return;
+  const admin = createAdminClient();
+  await admin
+    .from("subscriptions")
+    .update({ status: "canceled", current_period_end: new Date().toISOString() })
+    .eq("stripe_subscription_id", subId)
+    .eq("user_id", id);
+  revalidatePath("/admin", "layout");
+  redirect(`/admin/members/${id}`);
 }
 
 // ---------- Document review ----------

@@ -3,16 +3,16 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const items = [
+const items: { href: string; label: string; premium?: boolean }[] = [
   { href: "/dashboard", label: "Overview" },
   { href: "/dashboard/programmes", label: "All programmes" },
   { href: "/dashboard/saved", label: "Saved" },
-  { href: "/dashboard/documents", label: "Documents" },
-  { href: "/dashboard/applications", label: "Applications" },
+  { href: "/dashboard/documents", label: "Documents", premium: true },
+  { href: "/dashboard/applications", label: "Applications", premium: true },
   { href: "/onboarding", label: "My profile" },
 ];
 
-export function DashboardNav({ isAdmin }: { isAdmin: boolean }) {
+export function DashboardNav({ isAdmin, isPremium }: { isAdmin: boolean; isPremium: boolean }) {
   const path = usePathname();
   const all = isAdmin ? [...items, { href: "/admin", label: "Admin" }] : items;
   return (
@@ -29,6 +29,9 @@ export function DashboardNav({ isAdmin }: { isAdmin: boolean }) {
                 }`}
               >
                 {i.label}
+                {i.premium && !isPremium && (
+                  <span className="ml-1.5 rounded-full bg-accent/10 px-1.5 py-0.5 text-[11px] font-semibold text-accent">Premium</span>
+                )}
               </Link>
             </li>
           );

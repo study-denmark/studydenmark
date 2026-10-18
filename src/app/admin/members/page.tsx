@@ -14,7 +14,7 @@ type Row = {
   field_of_interest: string | null;
   onboarding_completed_at: string | null;
   created_at: string;
-  subscriptions: { status: string; current_period_end: string | null }[];
+  subscriptions: { status: string; plan: string; current_period_end: string | null }[];
   documents: { count: number }[];
   applications: { id: string }[];
 };
@@ -29,16 +29,21 @@ export default async function MembersPage({
   let query = supabase
     .from("profiles")
     .select(
-      "id, email, full_name, role, nationality, field_of_interest, onboarding_completed_at, created_at, subscriptions(status, current_period_end), documents!documents_user_id_fkey(count), applications(id)",
+      "id, email, full_name, role, nationality, field_of_interest, onboarding_completed_at, created_at, subscriptions(status, plan, current_period_end), documents!documents_user_id_fkey(count), applications(id)",
     )
     .order("created_at", { ascending: false })
     .limit(500);
   if (q) query = query.or(`email.ilike.%${q.replace(/[%,()]/g, "")}%,full_name.ilike.%${q.replace(/[%,()]/g, "")}%`);
   const { data } = await query.returns<Row[]>();
 
-  const isActive = (r: Row) => r.subscriptions.some((s) => ["active", "trialing"].includes(s.status));
+  const live = (r: Row) =>
+    r.subscriptions.filter((s) => ["active", "trialing"].includes(s.status) && (!s.current_period_end || new Date(s.current_period_end) > new Date()));
+  const isActive = (r: Row) => live(r).length > 0;
+  const planOf = (r: Row) => (live(r).some((s) => s.plan === "premium") ? "premium" : isActive(r) ? "basic" : null);
   let rows = data ?? [];
   if (filter === "active") rows = rows.filter(isActive);
+  if (filter === "basic") rows = rows.filter((r) => planOf(r) === "basic");
+  if (filter === "premium") rows = rows.filter((r) => planOf(r) === "premium");
   if (filter === "inactive") rows = rows.filter((r) => !isActive(r) && r.role !== "admin");
   if (filter === "no-profile") rows = rows.filter((r) => !r.onboarding_completed_at);
   if (filter === "admins") rows = rows.filter((r) => r.role === "admin");
@@ -46,6 +51,8 @@ export default async function MembersPage({
   const tabs = [
     ["", "All"],
     ["active", "Paying"],
+    ["basic", "Basic"],
+    ["premium", "Premium"],
     ["inactive", "Not paying"],
     ["no-profile", "No profile yet"],
     ["admins", "Admins"],
@@ -78,7 +85,8 @@ export default async function MembersPage({
       <div className="mt-2">
         <Table head={["Member", "Country", "Interest", "Membership", "Docs", "Apps", "Joined"]} minWidth={820}>
           {rows.map((r) => {
-            const sub = r.subscriptions[0];
+            const plan = planOf(r);
+            const sub = live(r).find((s) => s.plan === plan) ?? r.subscriptions[0];
             return (
               <tr key={r.id} className="border-t border-line">
                 <td className="px-4 py-3">
@@ -88,7 +96,15 @@ export default async function MembersPage({
                 </td>
                 <td className="px-4 py-3 text-ink-soft">{countryName(r.nationality) ?? "—"}</td>
                 <td className="px-4 py-3 text-sm text-ink-soft">{r.onboarding_completed_at ? r.field_of_interest : <Pill>No profile</Pill>}</td>
-                <td className="px-4 py-3">{sub ? <Pill tone={subTone(sub.status)}>{subscriptionStatusLabels[sub.status] ?? sub.status}</Pill> : <Pill>None</Pill>}</td>
+                <td className="px-4 py-3">
+                  {plan ? (
+                    <Pill tone={plan === "premium" ? "ink" : "green"}>{plan === "premium" ? "Premium" : "Basic"}</Pill>
+                  ) : sub ? (
+                    <Pill tone={subTone(sub.status)}>{subscriptionStatusLabels[sub.status] ?? sub.status}</Pill>
+                  ) : (
+                    <Pill>None</Pill>
+                  )}
+                </td>
                 <td className="px-4 py-3 text-ink-soft">{r.documents[0]?.count ?? 0}</td>
                 <td className="px-4 py-3 text-ink-soft">{r.applications.length}</td>
                 <td className="px-4 py-3 text-sm text-ink-soft">{fmtDate(r.created_at)}</td>

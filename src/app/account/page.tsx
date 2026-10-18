@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
+import { site } from "@/config/site";
 import { openBillingPortal } from "@/app/actions/billing";
 import { deleteAccount } from "@/app/actions/account";
 import { subscriptionStatusLabels } from "@/lib/labels";
@@ -17,7 +18,7 @@ export default async function AccountPage({
 }: {
   searchParams: Promise<{ error?: string }>;
 }) {
-  const { user, profile, subscription, isActive } = await getSession();
+  const { user, profile, subscription, isActive, plan } = await getSession();
   if (!user) redirect("/login?next=/account");
   const { error } = await searchParams;
 
@@ -44,6 +45,12 @@ export default async function AccountPage({
           <h2 className="text-lg font-semibold">Membership</h2>
           {subscription ? (
             <div className="mt-4 text-[15px]">
+              {plan && (
+                <p className="mb-1">
+                  Plan: <span className="font-medium">{site.plans[plan].name}</span>
+                  <span className="text-ink-soft"> · {site.plans[plan].amountLabel}/{site.plans[plan].interval}</span>
+                </p>
+              )}
               <p>
                 Status:{" "}
                 <span className={`font-medium ${isActive ? "text-ok" : "text-accent"}`}>
@@ -55,9 +62,14 @@ export default async function AccountPage({
                   {subscription.cancel_at_period_end ? "Ends" : "Renews"} on {fmt(subscription.current_period_end)}
                 </p>
               )}
-              <form action={openBillingPortal} className="mt-5">
-                <Button variant="ghost" type="submit">Manage payment & cancel</Button>
-              </form>
+              <div className="mt-5 flex flex-wrap gap-3">
+                {plan === "basic" && <ButtonLink href="/upgrade" variant="accent">Upgrade to Premium</ButtonLink>}
+                {!subscription.stripe_subscription_id.startsWith("manual_") && (
+                  <form action={openBillingPortal}>
+                    <Button variant="ghost" type="submit">Manage payment & cancel</Button>
+                  </form>
+                )}
+              </div>
             </div>
           ) : (
             <div className="mt-4">

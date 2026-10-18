@@ -39,7 +39,10 @@ Sikkerhed er testet: studerende ser kun egne data, kan ikke gøre sig selv til a
 3. Authentication → Emails → SMTP: sæt jeres egen mailudbyder op før lancering (Supabases standard-mail er stærkt begrænset).
 
 ### 2. Stripe (start i testmode)
-1. Opret produkt "Membership" med en **tilbagevendende årlig pris på 100 DKK** → kopier `price_...` til `STRIPE_PRICE_ID`.
+1. Opret to produkter med **tilbagevendende årlig pris**:
+   - "Basic" 100 DKK → kopier `price_...` til `STRIPE_PRICE_ID_BASIC`
+   - "Premium" 500 DKK → kopier `price_...` til `STRIPE_PRICE_ID_PREMIUM`
+   Opgradering Basic → Premium trækker kun forskellen for resten af året (proration).
 2. Developers → API keys → `STRIPE_SECRET_KEY`.
 3. Developers → Webhooks → tilføj endpoint `https://jeres-domæne.dk/api/stripe/webhook` med events:
    `checkout.session.completed`, `customer.subscription.created`, `customer.subscription.updated`,

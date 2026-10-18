@@ -37,12 +37,14 @@ export default function SignupPage() {
       return;
     }
     setLoading(true);
+    const plan = new URLSearchParams(window.location.search).get("plan");
+    const next = plan === "basic" || plan === "premium" ? `/subscribe?plan=${plan}` : "/subscribe";
     const supabase = createClient();
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
-        emailRedirectTo: `${window.location.origin}/auth/callback?next=/subscribe`,
+        emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`,
         captchaToken: captcha,
         data: {
           full_name: fullName,
@@ -61,7 +63,7 @@ export default function SignupPage() {
     }
     // If email confirmation is disabled, a session is returned immediately.
     if (data.session) {
-      window.location.href = "/subscribe";
+      window.location.href = next;
       return;
     }
     setSentTo(email);
@@ -115,7 +117,7 @@ export default function SignupPage() {
           {loading ? "Creating account…" : "Create account"}
         </Button>
         <p className="text-center text-xs text-muted">
-          Next step: choose your membership ({site.price.amountLabel}/{site.price.interval}).
+          Next step: choose Basic ({site.plans.basic.amountLabel}/{site.plans.basic.interval}) or Premium ({site.plans.premium.amountLabel}/{site.plans.premium.interval}).
         </p>
       </form>
     </AuthShell>

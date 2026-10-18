@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function ProgrammePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const { supabase, user, profile } = await requireSubscriber();
+  const { supabase, user, profile, isPremium } = await requireSubscriber();
 
   const { data: p } = await supabase
     .from("programmes")
@@ -199,12 +199,19 @@ export default async function ProgrammePage({ params }: { params: Promise<{ slug
                 ✓ Application in progress – view status
               </Link>
             ) : p.is_published ? (
-              <Link href={`/dashboard/apply/${p.slug}`} className="rounded-full bg-accent px-5 py-3 text-center font-medium text-white hover:bg-[#a50d26]">
-                Apply with our help
+              <Link
+                href={isPremium ? `/dashboard/apply/${p.slug}` : "/upgrade"}
+                className="rounded-full bg-accent px-5 py-3 text-center font-medium text-white hover:bg-[#a50d26]"
+              >
+                {isPremium ? "Apply with our help" : "Apply with our help – Premium"}
               </Link>
             ) : null}
             <SaveButton programmeId={p.id} saved={!!saved?.length} withLabel />
-            <p className="text-xs text-muted">Included in your membership. We check your documents and send the application for you.</p>
+            <p className="text-xs text-muted">
+              {isPremium
+                ? "Included in your Premium membership. We check your documents and send the application for you."
+                : "With Premium we check your documents and send the application for you."}
+            </p>
           </div>
         </Card>
       </aside>

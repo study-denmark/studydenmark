@@ -209,7 +209,7 @@ export function EligibilityQuiz() {
             See the exact programmes in {answers.field && answers.field !== "Not sure yet" ? answers.field.toLowerCase() : "your field"} you qualify for
           </p>
           <Link href="/signup" className="mt-4 rounded-full bg-ink px-5 py-3 font-medium text-white hover:bg-ink-soft">
-            Unlock for {site.price.amountLabel}/{site.price.interval}
+            Unlock from {site.price.amountLabel}/{site.price.interval}
           </Link>
         </div>
       </div>

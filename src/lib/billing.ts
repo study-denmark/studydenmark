@@ -2,6 +2,7 @@ import "server-only";
 import type Stripe from "stripe";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { stripe } from "@/lib/stripe";
+import { planForPrice } from "@/lib/stripe-prices";
 
 const toIso = (unix?: number | null) => (unix ? new Date(unix * 1000).toISOString() : null);
 
@@ -40,6 +41,7 @@ export async function syncSubscription(subOrId: Stripe.Subscription | string) {
       stripe_subscription_id: sub.id,
       stripe_customer_id: customerId(sub.customer),
       stripe_price_id: item?.price.id ?? null,
+      plan: planForPrice(item?.price.id),
       status: sub.status,
       current_period_start: toIso(item?.current_period_start),
       current_period_end: toIso(item?.current_period_end),

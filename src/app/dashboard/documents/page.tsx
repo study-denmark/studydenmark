@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { requireSubscriber } from "@/lib/auth";
+import { requirePremium } from "@/lib/auth";
 import {
   CORE_DOCUMENTS,
   DOCUMENT_TYPES,
@@ -21,8 +21,13 @@ const statusStyle = {
   rejected: { label: "Needs a new file", cls: "bg-accent-soft text-accent" },
 } as const;
 
-export default async function DocumentsPage() {
-  const { supabase, user } = await requireSubscriber();
+export default async function DocumentsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ upgraded?: string }>;
+}) {
+  const { supabase, user } = await requirePremium();
+  const { upgraded } = await searchParams;
 
   const [{ data: docs }, { data: saved }] = await Promise.all([
     supabase
@@ -56,6 +61,11 @@ export default async function DocumentsPage() {
 
   return (
     <div className="space-y-10">
+      {upgraded && (
+        <Callout>
+          <strong>Welcome to Premium.</strong> Upload your documents below – we check every file and help you apply.
+        </Callout>
+      )}
       <div className="grid gap-6 lg:grid-cols-[1fr_320px] lg:items-end">
         <div>
           <h1 className="text-3xl font-semibold sm:text-4xl">My documents</h1>

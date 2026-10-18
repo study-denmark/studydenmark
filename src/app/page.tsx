@@ -24,8 +24,8 @@ const included = [
   "Personal match against English-taught programmes at business academies and universities",
   "Entry requirements explained for your education level and country",
   "Tuition, deadlines and language requirements side by side",
-  "Document checklist and secure upload",
-  "Help submitting your application to partner schools",
+  "Premium: document checklist, secure upload and document check",
+  "Premium: help submitting your application to partner schools",
   "Updates when deadlines are coming up",
 ];
 
@@ -129,18 +129,19 @@ export default function Home() {
       <section className="bg-ink text-white">
         <Container className="grid gap-12 py-20 lg:grid-cols-2">
           <div>
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-white/60">One yearly membership</p>
-            <h2 className="text-3xl font-semibold sm:text-4xl">Everything you need to apply, for less than a textbook.</h2>
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-white/60">Two yearly memberships</p>
+            <h2 className="text-3xl font-semibold sm:text-4xl">Find your programme – or let us help you apply.</h2>
             <p className="mt-5 max-w-md text-white/75">
-              {site.price.amountLabel} ({site.price.approxEur}) per {site.price.interval}. Cancel any time. Our help with
-              applying to partner schools is included – you never pay extra for it.
+              <strong className="text-white">Basic</strong> {site.plans.basic.amountLabel}/{site.plans.basic.interval}: see every
+              programme you can study and what it requires. <strong className="text-white">Premium</strong>{" "}
+              {site.plans.premium.amountLabel}/{site.plans.premium.interval}: we check your documents and help you apply. Cancel any time.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link href="/signup" className="inline-flex items-center justify-center rounded-full bg-white px-5 py-3 font-medium text-ink hover:bg-paper">
                 Create your account
               </Link>
               <Link href="/pricing" className="inline-flex items-center justify-center rounded-full border border-white/25 px-5 py-3 font-medium text-white hover:border-white/60">
-                See what’s included
+                Compare plans
               </Link>
             </div>
           </div>

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { requireSubscriber } from "@/lib/auth";
+import { requirePremium } from "@/lib/auth";
 import { APPLICATION_COLUMNS, docLabel, studentStageLabels } from "@/lib/documents";
 import { levelLabels } from "@/lib/labels";
 import { ButtonLink, Callout, PartnerBadge } from "@/components/ui";
@@ -29,7 +29,7 @@ const steps = ["interested", "documents_complete", "sent_to_school", "admitted"]
 const fmt = (d: string) => new Date(d).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
 
 export default async function ApplicationsPage({ searchParams }: { searchParams: Promise<{ new?: string }> }) {
-  const { supabase, user } = await requireSubscriber();
+  const { supabase, user } = await requirePremium();
   const { new: isNew } = await searchParams;
 
   const [{ data: apps }, { data: shares }] = await Promise.all([

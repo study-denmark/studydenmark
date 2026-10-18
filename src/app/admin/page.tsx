@@ -13,9 +13,10 @@ export default async function AdminHome() {
     supabase.from("programmes").select("*", head).eq("is_published", true),
     supabase.from("profiles").select("*", head).eq("role", "student"),
     supabase.from("profiles").select("*", head).eq("role", "student").not("onboarding_completed_at", "is", null),
-    supabase.from("subscriptions").select("*", head).in("status", ["active", "trialing"]),
+    supabase.from("subscriptions").select("*", head).in("status", ["active", "trialing"]).gt("current_period_end", new Date().toISOString()),
+    supabase.from("subscriptions").select("*", head).in("status", ["active", "trialing"]).gt("current_period_end", new Date().toISOString()).eq("plan", "premium"),
   ]);
-  const [institutions, partners, programmes, published, students, onboarded, active] = results.map((r) => r.count ?? 0);
+  const [institutions, partners, programmes, published, students, onboarded, active, premium] = results.map((r) => r.count ?? 0);
 
   const [{ data: apps }, pending] = await Promise.all([
     supabase
@@ -51,7 +52,7 @@ export default async function AdminHome() {
       <h1 className="text-3xl font-semibold">Overview</h1>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Stat k="Students" v={students} sub={`${onboarded} completed profile`} />
-        <Stat k="Active memberships" v={active} />
+        <Stat k="Active memberships" v={active} sub={`${active - premium} Basic · ${premium} Premium`} href="/admin/members?filter=active" />
         <Stat k="Programmes" v={programmes} sub={`${published} published`} href="/admin/programmes" />
         <Stat k="Institutions" v={institutions} sub={`${partners} partners`} href="/admin/institutions" />
       </div>

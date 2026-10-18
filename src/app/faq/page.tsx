@@ -6,6 +6,10 @@ export const metadata: Metadata = { title: "FAQ" };
 
 const faqs: [string, string][] = [
   [
+    "What’s the difference between Basic and Premium?",
+    `Basic (${site.plans.basic.amountLabel}/${site.plans.basic.interval}) gives you the full programme database, your personal matches and the requirements for each programme. Premium (${site.plans.premium.amountLabel}/${site.plans.premium.interval}) adds our help applying: a document checklist, secure upload, a check of every document and an application sent to the schools you choose. You can upgrade from Basic any time and only pay the difference.`,
+  ],
+  [
     "Isn’t this information available for free?",
     "Most of it is – spread across dozens of school websites and government pages, with rules that differ by citizenship and education. We bring it together, keep it up to date and match it to your profile, so you only see what applies to you. Our free guide covers the basics.",
   ],

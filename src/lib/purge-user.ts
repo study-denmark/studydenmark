@@ -11,7 +11,7 @@ export async function purgeUser(userId: string): Promise<{ ok: boolean; error?: 
 
   const { data: subs } = await admin.from("subscriptions").select("stripe_subscription_id, status").eq("user_id", userId);
   for (const s of subs ?? []) {
-    if (!["canceled", "incomplete_expired"].includes(s.status) && !s.stripe_subscription_id.startsWith("zz-")) {
+    if (!["canceled", "incomplete_expired"].includes(s.status) && !s.stripe_subscription_id.startsWith("zz-") && !s.stripe_subscription_id.startsWith("manual_")) {
       try {
         await stripe().subscriptions.cancel(s.stripe_subscription_id);
       } catch (e) {

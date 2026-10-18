@@ -15,7 +15,7 @@ export default function TermsPage() {
         <h2>The service</h2>
         <p>{site.name} provides information and application guidance for studying in Denmark. We are not an educational institution or public authority and cannot guarantee admission.</p>
         <h2>Membership and payment</h2>
-        <p>Membership costs {site.price.amountLabel} per {site.price.interval} and renews automatically until cancelled. [Right of withdrawal (fortrydelsesret) for digital services – wording to be added.]</p>
+        <p>Basic costs {site.plans.basic.amountLabel} and Premium {site.plans.premium.amountLabel} per {site.plans.basic.interval}. Both renew automatically until cancelled. Upgrading from Basic to Premium charges the difference for the rest of the membership year. [Right of withdrawal (fortrydelsesret) for digital services – wording to be added.]</p>
         <h2>Partner institutions</h2>
         <p>Some institutions pay us a referral fee. They are always labelled “Partner”.</p>
         <h2>Cancellation</h2>
