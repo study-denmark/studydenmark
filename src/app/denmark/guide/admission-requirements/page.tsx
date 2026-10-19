@@ -7,7 +7,7 @@ export const metadata: Metadata = { title: "Admission requirements" };
 export default function Page() {
   return (
     <GuideLayout
-      current="/admission-requirements"
+      current="/denmark/guide/admission-requirements"
       title="Admission requirements"
       intro="Every programme has its own rules, but they follow the same structure. Here’s what schools will look at."
     >

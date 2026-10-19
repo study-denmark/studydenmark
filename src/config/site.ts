@@ -1,8 +1,10 @@
+import { getCountry } from "@/config/countries";
+
 // Central config. Change the brand name, price text and contact here.
 export const site = {
   name: "NorthStep",
   shortName: "NorthStep",
-  tagline: "Find out exactly what you can study in Denmark – and get help applying.",
+  tagline: "Find out exactly what you can study abroad, and get help applying.",
   description:
     "Personal guidance for international students: entry requirements, English-taught programmes, deadlines and help collecting your application documents.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
@@ -33,18 +35,12 @@ export const officialSources = {
   ug: "https://www.ug.dk",
 } as const;
 
+// Main nav links; the "Study abroad" country menu is rendered before them
 export const publicNav = [
-  { href: "/study-in-denmark", label: "Studying in Denmark" },
-  { href: "/programmes", label: "Programmes" },
-  { href: "/eligibility", label: "Check eligibility" },
+  { href: "/#how-it-works", label: "How it works" },
   { href: "/pricing", label: "Pricing" },
   { href: "/faq", label: "FAQ" },
 ] as const;
 
-export const guideNav = [
-  { href: "/study-in-denmark", label: "Student life" },
-  { href: "/eu-vs-non-eu", label: "EU/EEA vs. non-EU" },
-  { href: "/admission-requirements", label: "Admission requirements" },
-  { href: "/deadlines", label: "Deadlines" },
-  { href: "/cost-of-living", label: "Cost of living" },
-] as const;
+// Sidebar of the Denmark guide pages
+export const guideNav = (getCountry("denmark").guide ?? []).map(({ href, label }) => ({ href, label }));

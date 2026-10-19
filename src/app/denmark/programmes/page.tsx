@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
-import { ButtonLink, Card, Container, Eyebrow, PartnerBadge } from "@/components/ui";
+import { ButtonLink, Card, PartnerBadge } from "@/components/ui";
+import { CountryPage } from "@/components/country-layout";
 import { levelLabels } from "@/lib/labels";
 
 export const metadata: Metadata = { title: "Programmes taught in English" };
@@ -38,18 +39,20 @@ export default async function ProgrammesPage() {
   ]);
 
   return (
-    <Container className="py-12 sm:py-16">
-      <Eyebrow>Programmes</Eyebrow>
-      <h1 className="max-w-3xl text-4xl font-semibold leading-tight sm:text-5xl">English-taught programmes in Denmark</h1>
-      <p className="mt-5 max-w-2xl text-lg text-ink-soft">
-        Business academies and universities across Denmark teach full degrees in English. Here are the five
-        types you can choose between.
-        {typeof total === "number" && total > 0 && (
-          <> Members get access to all <strong className="text-ink">{total}</strong> programmes in our database, matched to their profile.</>
-        )}
-      </p>
-
-      <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <CountryPage
+      eyebrow="Programmes"
+      title="English-taught programmes in Denmark"
+      intro={
+        <p>
+          Business academies and universities across Denmark teach full degrees in English. Here are the five
+          types you can choose between.
+          {typeof total === "number" && total > 0 && (
+            <> Members get access to all <strong className="text-ink">{total}</strong> programmes in our database, matched to their profile.</>
+          )}
+        </p>
+      }
+    >
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {types.map((t) => (
           <Card key={t.level}>
             <div className="flex items-baseline justify-between gap-3">
@@ -92,10 +95,10 @@ export default async function ProgrammesPage() {
             Requirements, tuition, deadlines and language scores – filtered to your profile.
           </p>
         </div>
-        <ButtonLink href="/eligibility" className="bg-white !text-ink hover:bg-paper">
+        <ButtonLink href="/denmark/eligibility" className="bg-white !text-ink hover:bg-paper">
           Check your eligibility
         </ButtonLink>
       </div>
-    </Container>
+    </CountryPage>
   );
 }

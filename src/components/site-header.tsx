@@ -4,6 +4,7 @@ import { publicNav, site } from "@/config/site";
 import { createClient } from "@/lib/supabase/server";
 import { Container } from "@/components/ui";
 import { MobileMenu } from "@/components/mobile-menu";
+import { StudyAbroadMenu } from "@/components/study-abroad-menu";
 
 export function Logo() {
   return (
@@ -28,6 +29,7 @@ export async function SiteHeader() {
       <Container className="flex h-16 items-center justify-between gap-4">
         <Logo />
         <nav className="hidden items-center gap-7 text-[15px] text-ink-soft lg:flex">
+          <StudyAbroadMenu />
           {publicNav.map((item) => (
             <Link key={item.href} href={item.href} className="hover:text-ink">
               {item.label}
@@ -36,17 +38,12 @@ export async function SiteHeader() {
         </nav>
         <div className="hidden items-center gap-3 lg:flex">
           {user ? (
-            <>
-              <Link href="/account" className="text-[15px] text-ink-soft hover:text-ink">
-                Account
-              </Link>
-              <Link
-                href="/dashboard"
-                className="rounded-full bg-ink px-4 py-2 text-[15px] font-medium text-white hover:bg-ink-soft"
-              >
-                My dashboard
-              </Link>
-            </>
+            <Link
+              href="/dashboard"
+              className="rounded-full bg-ink px-4 py-2 text-[15px] font-medium text-white hover:bg-ink-soft"
+            >
+              My account
+            </Link>
           ) : (
             <>
               <Link href="/login" className="text-[15px] text-ink-soft hover:text-ink">

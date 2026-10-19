@@ -16,7 +16,7 @@ const timeline = [
 export default function Page() {
   return (
     <GuideLayout
-      current="/deadlines"
+      current="/denmark/guide/deadlines"
       title="Application deadlines"
       intro="Missing a deadline usually means waiting a full year. These are the dates that matter for most international students."
     >

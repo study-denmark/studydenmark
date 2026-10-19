@@ -3,8 +3,8 @@ import { site } from "@/config/site";
 import { planFeatures, type Plan } from "@/lib/plans";
 
 const blurb: Record<Plan, string> = {
-  basic: "See exactly what you can study in Denmark.",
-  premium: "We help you apply – documents checked, applications handled.",
+  basic: "See what you can apply for, and where.",
+  premium: "Everything in Basic, plus help with your application.",
 };
 
 export function PlanCard({ plan, highlight, children }: { plan: Plan; highlight?: boolean; children?: ReactNode }) {

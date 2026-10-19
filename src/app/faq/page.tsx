@@ -1,45 +1,64 @@
 import type { Metadata } from "next";
 import { site } from "@/config/site";
+import type { ReactNode } from "react";
 import { Container, Eyebrow } from "@/components/ui";
+import { PLANS, planFeatures } from "@/lib/plans";
 
 export const metadata: Metadata = { title: "FAQ" };
 
-const faqs: [string, string][] = [
+const faqs: [string, ReactNode][] = [
+  [
+    "What is NorthStep?",
+    "NorthStep helps international students apply to study abroad. Tell us about your education and we’ll show you the programmes you can apply for, what each one asks for, and when to apply. We’re starting with Denmark, and more countries are on the way.",
+  ],
   [
     "What’s the difference between Basic and Premium?",
-    `Basic (${site.plans.basic.amountLabel}/${site.plans.basic.interval}) gives you the full programme database, your personal matches and the requirements for each programme. Premium (${site.plans.premium.amountLabel}/${site.plans.premium.interval}) adds our help applying: a document checklist, secure upload, a check of every document and an application sent to the schools you choose. You can upgrade from Basic any time and only pay the difference.`,
+    <div key="plans" className="space-y-6">
+      {PLANS.map((p) => (
+        <div key={p}>
+          <p className="text-[15px] font-semibold text-ink">
+            {site.plans[p].name} · {site.plans[p].amountLabel}/{site.plans[p].interval}
+          </p>
+          <ul className="mt-2.5 space-y-2">
+            {planFeatures[p].map((f) => (
+              <li key={f} className="flex gap-3">
+                <span aria-hidden className="mt-[0.6em] h-1.5 w-1.5 shrink-0 rounded-full bg-ink" />
+                {f}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+      <p>You can upgrade from Basic any time and only pay the difference.</p>
+    </div>,
   ],
   [
-    "Isn’t this information available for free?",
-    "Most of it is – spread across dozens of school websites and government pages, with rules that differ by citizenship and education. We bring it together, keep it up to date and match it to your profile, so you only see what applies to you. Our free guide covers the basics.",
+    "Isn’t this information free online?",
+    "Some of it is. But it’s scattered across many websites, and the rules change depending on your citizenship and your education. We bring it together and match it to you, so you only see what applies. Our free guide is a good place to start.",
   ],
   [
-    "Are you an official Danish authority?",
-    "No. We are an independent company. We base our information on official sources such as studyindenmark.dk, optagelse.dk and nyidanmark.dk, and link to them so you can check.",
+    "Are you an official authority?",
+    "No, we’re an independent team. Everything we share comes from official sources, and we link to them so you can always check for yourself.",
   ],
   [
-    "Do you guarantee admission?",
-    "No one can. Schools make admission decisions themselves. We help you find programmes you meet the requirements for and submit a complete, well-prepared application.",
+    "Can you guarantee admission?",
+    "No. Admission decisions are made by the schools. What we do is help you find programmes you qualify for and put together a complete, well-organised application.",
   ],
   [
     "What does “Partner” mean?",
-    "Some schools pay us a referral fee when a student we helped enrols. We always label them “Partner”. It never changes the requirements we show or the price you pay, and we show all programmes you qualify for.",
+    "We work with selected schools and mark them with a “Partner” label. A partnership never changes the requirements we show or the price you pay.",
   ],
   [
     "What happens to my documents?",
-    "They are stored encrypted in a private storage area that only you and our review team can access. We only share them with a school after you have explicitly asked us to apply there on your behalf – and you can see a log of every share in your account.",
+    "Your documents are stored in a private, secure space that only you and our team can open. We only send a document to a school when you ask us to apply there, and you can see every transfer in your account.",
   ],
   [
     "Can I delete my data?",
-    "Yes. You can download all your data or delete your account and every uploaded file from your account page at any time.",
+    "Yes, whenever you like. From your account page you can download your data or delete your account and every file you’ve uploaded.",
   ],
   [
     "How do I cancel?",
-    "From your account page. Your membership stays active until the end of the period you’ve paid for, and it won’t renew.",
-  ],
-  [
-    "Do I still need to apply through optagelse.dk?",
-    "For bachelor-level programmes, yes – that’s the official system. We help you prepare everything and guide you through it. Master’s programmes usually have their own university portals.",
+    "From your account page. Your plan stays active until the end of the period you’ve paid for, and it won’t renew.",
   ],
 ];
 
@@ -56,7 +75,11 @@ export default function FaqPage() {
                 {q}
                 <span className="mt-1 text-muted transition-transform group-open:rotate-45" aria-hidden>+</span>
               </summary>
-              <p className="mt-3 leading-relaxed text-ink-soft">{a}</p>
+              {typeof a === "string" ? (
+                <p className="mt-3 leading-relaxed text-ink-soft">{a}</p>
+              ) : (
+                <div className="mt-4 leading-relaxed text-ink-soft">{a}</div>
+              )}
             </details>
           ))}
         </div>

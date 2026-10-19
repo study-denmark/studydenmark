@@ -6,6 +6,14 @@ import { site } from "@/config/site";
 export type WaitlistState = { status: "idle" | "ok" | "error"; message?: string };
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+// Only these values are stored in waitlist.source; anything else falls back to the launch list
+const SOURCES = new Set([
+  "coming-soon",
+  "country:sweden",
+  "country:norway",
+  "country:finland",
+  "country:netherlands",
+]);
 
 export async function joinWaitlist(_prev: WaitlistState, formData: FormData): Promise<WaitlistState> {
   // Honeypot: real people never fill this hidden field
@@ -16,11 +24,14 @@ export async function joinWaitlist(_prev: WaitlistState, formData: FormData): Pr
     return { status: "error", message: "Please enter a valid email address." };
   }
 
+  const requested = String(formData.get("source") ?? "");
+  const source = SOURCES.has(requested) ? requested : "coming-soon";
+
   const admin = createAdminClient();
   const { error } = await admin.from("waitlist").insert({
     email,
     consent_version: site.consentVersion,
-    source: "coming-soon",
+    source,
   });
   // 23505 = already on the list; treat as success so we don't reveal who signed up
   if (error && error.code !== "23505") {

@@ -139,7 +139,7 @@ export function ProgrammeForm({
             </label>
             <label className="flex items-center gap-2">
               <input type="checkbox" name="is_public_preview" defaultChecked={p?.is_public_preview} className="h-4 w-4 accent-[#102448]" />
-              <strong>Free preview</strong> <span className="text-muted">– also shown on the public /programmes page</span>
+              <strong>Free preview</strong> <span className="text-muted">– also shown on the public /denmark/programmes page</span>
             </label>
           </div>
         </Group>

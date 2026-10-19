@@ -134,7 +134,7 @@ export async function saveProgramme(_prev: AdminState, f: FormData): Promise<Adm
 
   revalidatePath("/admin", "layout");
   revalidatePath("/dashboard", "layout");
-  revalidatePath("/programmes");
+  revalidatePath("/denmark/programmes");
   redirect("/admin/programmes");
 }
 

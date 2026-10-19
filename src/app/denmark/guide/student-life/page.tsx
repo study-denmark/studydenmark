@@ -7,7 +7,7 @@ export const metadata: Metadata = { title: "Studying in Denmark" };
 export default function Page() {
   return (
     <GuideLayout
-      current="/study-in-denmark"
+      current="/denmark/guide/student-life"
       title="What it’s like to study in Denmark"
       intro="Small classes, project work with real companies and teachers you call by their first name. Here’s what to expect – and the types of programmes you can choose between."
     >
@@ -55,7 +55,7 @@ export default function Page() {
         <li><strong>Everyone speaks English.</strong> You can get by without Danish, but learning some helps with jobs and friends. Free Danish classes are often available to residents.</li>
         <li><strong>Cycling is the default.</strong> Cities are compact and bike-friendly.</li>
         <li><strong>Housing is the hard part.</strong> Start looking as soon as you’re admitted, especially in Copenhagen and Aarhus.</li>
-        <li><strong>You can work part-time.</strong> See <a href="/cost-of-living">cost of living</a> for the rules.</li>
+        <li><strong>You can work part-time.</strong> See <a href="/denmark/guide/cost-of-living">cost of living</a> for the rules.</li>
       </ul>
 
       <h2>Official source</h2>

@@ -16,7 +16,7 @@ const budget = [
 export default function Page() {
   return (
     <GuideLayout
-      current="/cost-of-living"
+      current="/denmark/guide/cost-of-living"
       title="Cost of living"
       intro="Denmark isn’t cheap, but students make it work. Here’s a realistic monthly budget and what you can earn on the side."
     >

@@ -6,18 +6,20 @@ export const PLANS: Plan[] = ["basic", "premium"];
 
 export const planFeatures: Record<Plan, string[]> = {
   basic: [
-    "Full database of English-taught programmes",
-    "Personal matches based on your profile",
+    "See which programmes you can apply for and where",
     "Requirements, tuition and deadlines per programme",
     "Which documents each programme asks for",
     "Save programmes to your shortlist",
+    "Apply on your own",
   ],
   premium: [
     "Everything in Basic",
-    "Personal document checklist for your chosen programmes",
-    "Secure document upload – we check every document",
-    "We help you apply to the schools you choose",
-    "Follow your applications step by step",
+    "Your personal document checklist",
+    "Secure upload",
+    "We check your documents",
+    "CV and motivational letter templates with clear examples",
+    "Guidance to student accommodation sites",
+    "We help you apply to the schools you choose, with step-by-step tracking",
   ],
 };
 
