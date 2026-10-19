@@ -4,14 +4,14 @@
 @theme {
   --color-paper: #f7f5f0;
   --color-surface: #ffffff;
-  --color-ink: #14213d;
-  --color-ink-soft: #3b4660;
+  --color-ink: #102448;
+  --color-ink-soft: #3a4d63;
   --color-muted: #6b7385;
   --color-line: #e4e0d6;
   --color-accent: #c8102e;
   --color-accent-soft: #fbe9ec;
-  --color-sea: #2f5d62;
-  --color-sea-soft: #e6efee;
+  --color-sea: #3d6185;
+  --color-sea-soft: #e8eef4;
   --color-ok: #2e7d4f;
 
   --font-display: "Newsreader Variable", Georgia, serif;

@@ -11,7 +11,7 @@ export function ApplyForm({ programmeId, schoolName, isPartner }: { programmeId:
     <form action={action} className="mt-6 space-y-5">
       <input type="hidden" name="programme_id" value={programmeId} />
       <label className="flex gap-3 rounded-[var(--radius-card)] border border-line bg-surface p-5 text-[15px] leading-relaxed">
-        <input type="checkbox" name="consent" required className="mt-1 h-4 w-4 shrink-0 accent-[#14213D]" />
+        <input type="checkbox" name="consent" required className="mt-1 h-4 w-4 shrink-0 accent-[#102448]" />
         <span>
           I give permission for my profile and the documents I upload to be shared with <strong>{schoolName}</strong> for
           the purpose of applying to this programme. I can withdraw this permission at any time by contacting you, and I

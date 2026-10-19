@@ -99,14 +99,14 @@ export default function SignupPage() {
 
         <div className="space-y-3 rounded-xl bg-paper p-4 text-sm">
           <label className="flex gap-3">
-            <input name="terms" type="checkbox" required className="mt-0.5 h-4 w-4 shrink-0 accent-[#14213D]" />
+            <input name="terms" type="checkbox" required className="mt-0.5 h-4 w-4 shrink-0 accent-[#102448]" />
             <span>
               I accept the <Link href="/terms" target="_blank" className="underline">terms of service</Link> and
               have read the <Link href="/privacy" target="_blank" className="underline">privacy policy</Link>.
             </span>
           </label>
           <label className="flex gap-3 text-ink-soft">
-            <input name="marketing" type="checkbox" className="mt-0.5 h-4 w-4 shrink-0 accent-[#14213D]" />
+            <input name="marketing" type="checkbox" className="mt-0.5 h-4 w-4 shrink-0 accent-[#102448]" />
             <span>Email me deadline reminders and tips (optional).</span>
           </label>
         </div>

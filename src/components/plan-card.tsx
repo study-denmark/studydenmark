@@ -41,7 +41,7 @@ export function PlanCard({ plan, highlight, children }: { plan: Plan; highlight?
 export function Tick() {
   return (
     <svg width="18" height="18" viewBox="0 0 18 18" className="mt-0.5 shrink-0" aria-hidden>
-      <path d="M4 9.5l3 3 7-7" fill="none" stroke="#2F5D62" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M4 9.5l3 3 7-7" fill="none" stroke="#3D6185" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }

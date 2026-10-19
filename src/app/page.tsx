@@ -39,7 +39,7 @@ export default function Home() {
           <div>
             <Eyebrow>For international students</Eyebrow>
             <h1 className="text-[2.6rem] leading-[1.05] font-semibold sm:text-6xl">
-              Study in Denmark, <span className="italic text-sea">without the guesswork.</span>
+              Make a NorthStep. <span className="italic text-sea">Study abroad, without the guesswork.</span>
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">{site.tagline}</p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -69,7 +69,7 @@ export default function Home() {
                 className="object-cover"
               />
             </div>
-            <div className="relative mx-4 -mt-16 rounded-[var(--radius-card)] border border-line bg-surface p-4 shadow-[0_30px_60px_-30px_rgba(20,33,61,0.35)] md:absolute md:-top-6 md:left-0 md:mx-0 md:mt-0 md:w-[236px]">
+            <div className="relative mx-4 -mt-16 rounded-[var(--radius-card)] border border-line bg-surface p-4 shadow-[0_30px_60px_-30px_rgba(20,33,61,0.35)] md:absolute md:-top-6 md:left-0 md:mx-0 md:mt-0 md:w-[328px]">
               <p className="text-[11px] text-muted">Example: high school + IELTS 6.5</p>
               <p className="mt-0.5 text-xs font-semibold uppercase tracking-[0.12em] text-ink">You can apply for</p>
               <ul className="mt-2.5 space-y-1.5">
@@ -84,8 +84,8 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-              <p className="mt-2.5 text-[13px]">
-                <span className="font-semibold text-accent">Deadline:</span> 15 March, 12:00
+              <p className="mt-2.5 w-full whitespace-nowrap rounded-full bg-accent px-3 py-1.5 text-center text-[12px] text-white sm:text-[13px]">
+                <span className="font-semibold">Apply:</span> 1 Feb – 15 Mar, 12:00 noon Danish time
               </p>
             </div>
           </div>
@@ -204,8 +204,8 @@ export default function Home() {
 function Check({ light = false }: { light?: boolean }) {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" className="mt-0.5 shrink-0" aria-hidden>
-      <circle cx="8" cy="8" r="8" fill={light ? "rgba(255,255,255,0.15)" : "#E6EFEE"} />
-      <path d="M4.5 8.2l2.2 2.2 4.8-4.8" fill="none" stroke={light ? "#fff" : "#2F5D62"} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="8" cy="8" r="8" fill={light ? "rgba(255,255,255,0.15)" : "#E8EEF4"} />
+      <path d="M4.5 8.2l2.2 2.2 4.8-4.8" fill="none" stroke={light ? "#fff" : "#3D6185"} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }

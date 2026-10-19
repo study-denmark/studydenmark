@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image"
 import { publicNav, site } from "@/config/site";
 import { createClient } from "@/lib/supabase/server";
 import { Container } from "@/components/ui";
@@ -6,12 +7,8 @@ import { MobileMenu } from "@/components/mobile-menu";
 
 export function Logo() {
   return (
-    <Link href="/" className="flex items-center gap-2.5" aria-label={`${site.name} home`}>
-      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden>
-        <rect width="28" height="28" rx="7" fill="#C8102E" />
-        <rect x="9" y="0" width="4" height="28" fill="#fff" />
-        <rect x="0" y="12" width="28" height="4" fill="#fff" />
-      </svg>
+    <Link href="/" className="flex items-center gap-3" aria-label={`${site.name} home`}>
+      <Image src="/images/northstep-mountain.png" alt="" width={1157} height={483} priority className="h-7 w-auto" />
       <span className="font-[family-name:var(--font-display)] text-[19px] font-semibold tracking-tight text-ink">
         {site.shortName}
         <span className="text-muted font-normal"> Guide</span>

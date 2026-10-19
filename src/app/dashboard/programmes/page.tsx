@@ -162,7 +162,7 @@ export default async function ProgrammesDatabase({ searchParams }: { searchParam
 function Toggle({ name, value, checked, label }: { name: string; value: string; checked: boolean; label: string }) {
   return (
     <label className="flex items-center gap-2 text-ink-soft">
-      <input type="checkbox" name={name} value={value} defaultChecked={checked} className="h-4 w-4 accent-[#14213D]" />
+      <input type="checkbox" name={name} value={value} defaultChecked={checked} className="h-4 w-4 accent-[#102448]" />
       {label}
     </label>
   );
