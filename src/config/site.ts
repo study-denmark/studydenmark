@@ -1,7 +1,7 @@
 // Central config. Change the brand name, price text and contact here.
 export const site = {
-  name: "StudyDenmark Guide",
-  shortName: "StudyDenmark",
+  name: "NorthStep",
+  shortName: "NorthStep",
   tagline: "Find out exactly what you can study in Denmark – and get help applying.",
   description:
     "Personal guidance for international students: entry requirements, English-taught programmes, deadlines and help collecting your application documents.",
