@@ -111,7 +111,7 @@ export function EligibilityQuiz() {
             {step + 1} / {questions.length}
           </span>
         </div>
-        <h1 className="text-3xl font-semibold leading-tight sm:text-4xl">{q.title}</h1>
+        <h2 className="text-2xl font-semibold leading-tight sm:text-3xl">{q.title}</h2>
         {q.help && <p className="mt-3 text-ink-soft">{q.help}</p>}
         <div className="mt-8 grid gap-3">
           {q.options.map((o) => (
@@ -151,9 +151,9 @@ export function EligibilityQuiz() {
   return (
     <div>
       <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-sea">Your result</p>
-      <h1 className="text-3xl font-semibold leading-tight sm:text-4xl">
+      <h2 className="text-2xl font-semibold leading-tight sm:text-3xl">
         Good news – you can apply to study in Denmark.
-      </h1>
+      </h2>
 
       <div className="mt-8 rounded-[var(--radius-card)] border border-line bg-surface p-6">
         <p className="text-sm font-semibold text-muted">Programme types open to you</p>

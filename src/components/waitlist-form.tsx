@@ -1,35 +1,54 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState } from "react";
+import { useActionState, useId } from "react";
 import { joinWaitlist, type WaitlistState } from "@/app/actions/waitlist";
 
-export function WaitlistForm() {
+type Props = {
+  /** Stored in waitlist.source; the server only accepts known values */
+  source?: string;
+  label?: string;
+  successMessage?: string;
+  /** Stack the field and button – for narrow containers like cards */
+  stacked?: boolean;
+  autoFocus?: boolean;
+};
+
+export function WaitlistForm({
+  source = "coming-soon",
+  label = "Get an email when we launch",
+  successMessage = "We’ll email you as soon as we open.",
+  stacked = false,
+  autoFocus = false,
+}: Props) {
   const [state, action, pending] = useActionState<WaitlistState, FormData>(joinWaitlist, { status: "idle" });
+  const inputId = useId();
 
   if (state.status === "ok") {
     return (
       <p role="status" className="rounded-xl border border-sea/20 bg-sea-soft px-4 py-3.5 text-[15px] text-sea">
-        <strong>You’re on the list.</strong> We’ll email you as soon as we open.
+        <strong>You’re on the list.</strong> {successMessage}
       </p>
     );
   }
 
   return (
     <form action={action} className="max-w-md">
-      <label htmlFor="waitlist-email" className="text-sm font-medium text-ink">
-        Get an email when we launch
+      <label htmlFor={inputId} className="text-sm font-medium text-ink">
+        {label}
       </label>
-      <div className="mt-2 flex flex-col gap-2 sm:flex-row">
+      <div className={`mt-2 flex flex-col gap-2 ${stacked ? "" : "sm:flex-row"}`}>
         <input
-          id="waitlist-email"
+          id={inputId}
           name="email"
           type="email"
           required
           autoComplete="email"
+          autoFocus={autoFocus}
           placeholder="you@example.com"
           className="min-h-12 flex-1 rounded-full border border-line bg-surface px-5 text-[15px] text-ink outline-none placeholder:text-muted focus:border-sea"
         />
+        <input type="hidden" name="source" value={source} />
         {/* Honeypot for bots – hidden from people and screen readers */}
         <input type="text" name="company" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
         <button

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Container } from "@/components/ui";
+import { CountryPage } from "@/components/country-layout";
 import { EligibilityQuiz } from "./quiz";
 
 export const metadata: Metadata = {
@@ -9,10 +9,14 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <Container className="py-12 sm:py-16">
-      <div className="mx-auto max-w-2xl">
+    <CountryPage
+      eyebrow="Check eligibility"
+      title="Check your eligibility"
+      intro={<p>Five quick questions to see which Danish programmes you can apply for and when your deadline is.</p>}
+    >
+      <div className="max-w-2xl">
         <EligibilityQuiz />
       </div>
-    </Container>
+    </CountryPage>
   );
 }

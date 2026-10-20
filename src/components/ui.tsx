@@ -94,3 +94,12 @@ export function Field({
 
 export const inputClass =
   "w-full rounded-xl border border-line bg-surface px-4 py-3 text-base text-ink placeholder:text-muted/70 focus:border-sea focus:outline-none";
+
+export function Check({ light = false }: { light?: boolean }) {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" className="mt-0.5 shrink-0" aria-hidden>
+      <circle cx="8" cy="8" r="8" fill={light ? "rgba(255,255,255,0.15)" : "#E8EEF4"} />
+      <path d="M4.5 8.2l2.2 2.2 4.8-4.8" fill="none" stroke={light ? "#fff" : "#3D6185"} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}

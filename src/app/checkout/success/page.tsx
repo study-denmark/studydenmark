@@ -38,7 +38,7 @@ export default async function CheckoutSuccess({
       <div className="mx-auto max-w-lg text-center">
         <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-sea-soft">
           <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden>
-            <path d="M6 13.5l4.5 4.5L20 8.5" fill="none" stroke="#2F5D62" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M6 13.5l4.5 4.5L20 8.5" fill="none" stroke="#3D6185" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
         <h1 className="mt-6 text-3xl font-semibold sm:text-4xl">

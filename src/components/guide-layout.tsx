@@ -20,7 +20,7 @@ export function GuideLayout({
     <Container className="py-12 sm:py-16">
       <div className="grid gap-12 lg:grid-cols-[220px_1fr]">
         <aside className="order-2 lg:order-1">
-          <nav className="sticky top-24">
+          <nav className="sticky top-36">
             <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-muted">Guide</p>
             <ul className="space-y-1">
               {guideNav.map((l) => (
@@ -51,7 +51,7 @@ export function GuideLayout({
             <p className="mt-2 text-ink-soft">
               Answer five questions and see which programme types you can apply for and when your deadline is.
             </p>
-            <ButtonLink href="/eligibility" variant="accent" className="mt-5">
+            <ButtonLink href="/denmark/eligibility" variant="accent" className="mt-5">
               Check your eligibility
             </ButtonLink>
           </div>

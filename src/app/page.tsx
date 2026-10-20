@@ -1,33 +1,43 @@
 import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/config/site";
-import { ButtonLink, Card, Container, Eyebrow } from "@/components/ui";
+import { ButtonLink, Card, Check, Container, Eyebrow } from "@/components/ui";
+import { HeroSide } from "@/components/hero-side";
 
 const steps = [
   {
-    n: "01",
-    title: "Tell us about you",
-    body: "Your nationality, education, English level and budget. Takes about three minutes.",
+    n: "1",
+    title: "Tell us about yourself",
+    body: "Share your education, citizenship and English level. It takes about three minutes, and you don’t need an account.",
   },
   {
-    n: "02",
-    title: "See what you can apply for",
-    body: "English-taught programmes you actually qualify for, with requirements, deadlines and tuition in one place.",
+    n: "2",
+    title: "See where you can apply",
+    body: "We show the English-taught programmes you qualify for, with requirements, tuition and deadlines in one place.",
   },
   {
-    n: "03",
-    title: "Get your documents ready",
-    body: "A checklist for your chosen programmes. Upload once, we check them and help you apply.",
+    n: "3",
+    title: "Prepare your application",
+    body: "Get a checklist of the documents you need. With Premium, we check your documents and help you apply.",
   },
 ];
+// Desktop: each step sits higher than the one before, like the staircase in the logo
+const stepOffset = ["md:mt-20", "md:mt-10", "md:mt-0"];
 
-const included = [
-  "Personal match against English-taught programmes at business academies and universities",
-  "Entry requirements explained for your education level and country",
-  "Tuition, deadlines and language requirements side by side",
-  "Premium: document checklist, secure upload and document check",
-  "Premium: help submitting your application to partner schools",
-  "Updates when deadlines are coming up",
+const plans = [
+  { name: "Free", price: "€0", interval: null, body: "Country guides, key deadlines and an eligibility check. No account needed." },
+  {
+    name: site.plans.basic.name,
+    price: site.plans.basic.amountLabel,
+    interval: site.plans.basic.interval,
+    body: "See every programme you can study and exactly what it requires.",
+  },
+  {
+    name: site.plans.premium.name,
+    price: site.plans.premium.amountLabel,
+    interval: site.plans.premium.interval,
+    body: "We check your documents and help you submit your applications, including to our partner schools.",
+  },
 ];
 
 export default function Home() {
@@ -39,75 +49,27 @@ export default function Home() {
           <div>
             <Eyebrow>For international students</Eyebrow>
             <h1 className="text-[2.6rem] leading-[1.05] font-semibold sm:text-6xl">
-              Study in Denmark, <span className="italic text-sea">without the guesswork.</span>
+              Make a NorthStep.
+              <br />
+              <span className="italic text-sea">Study abroad, without the guesswork.</span>
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">{site.tagline}</p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <ButtonLink href="/eligibility" variant="accent">
-                Check your eligibility – free
+              <ButtonLink href="#countries" variant="accent">
+                Choose your country
               </ButtonLink>
-              <ButtonLink href="/study-in-denmark" variant="ghost">
-                How studying in Denmark works
+              <ButtonLink href="#how-it-works" variant="ghost">
+                How it works
               </ButtonLink>
             </div>
             <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted">
-              <li className="flex items-center gap-2"><Check /> Requirements from official Danish sources</li>
+              <li className="flex items-center gap-2"><Check /> Requirements from official sources</li>
               <li className="flex items-center gap-2"><Check /> Secure payment via Stripe</li>
               <li className="flex items-center gap-2"><Check /> GDPR-compliant document storage</li>
             </ul>
           </div>
 
-          {/* Visual: photo with a sample match card on top */}
-          <div className="relative">
-            <div className="relative ml-auto aspect-[4/5] w-full overflow-hidden rounded-[18px] bg-sea-soft md:w-[86%]">
-              <Image
-                src="/images/hero-copenhagen.jpg"
-                alt="A student cycling along the harbour in Nyhavn, Copenhagen"
-                fill
-                priority
-                sizes="(min-width: 1024px) 460px, (min-width: 768px) 70vw, 100vw"
-                className="object-cover"
-              />
-            </div>
-            <div className="relative mx-4 -mt-16 rounded-[var(--radius-card)] border border-line bg-surface p-4 shadow-[0_30px_60px_-30px_rgba(20,33,61,0.35)] md:absolute md:-top-6 md:left-0 md:mx-0 md:mt-0 md:w-[236px]">
-              <p className="text-[11px] text-muted">Example: high school + IELTS 6.5</p>
-              <p className="mt-0.5 text-xs font-semibold uppercase tracking-[0.12em] text-ink">You can apply for</p>
-              <ul className="mt-2.5 space-y-1.5">
-                {[
-                  ["AP degree", "2 yrs"],
-                  ["Prof. bachelor", "3.5 yrs"],
-                  ["University bachelor", "3 yrs"],
-                ].map(([t, d]) => (
-                  <li key={t} className="flex items-center justify-between rounded-md bg-paper px-2.5 py-1.5 text-[13px]">
-                    <span className="font-medium">{t}</span>
-                    <span className="text-muted">{d}</span>
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-2.5 text-[13px]">
-                <span className="font-semibold text-accent">Deadline:</span> 15 March, 12:00
-              </p>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      {/* Problem */}
-      <section className="border-y border-line bg-surface">
-        <Container className="grid gap-10 py-16 md:grid-cols-3">
-          <div className="md:col-span-1">
-            <h2 className="text-3xl font-semibold leading-tight">The information exists. It’s just everywhere.</h2>
-          </div>
-          <div className="grid gap-6 text-ink-soft sm:grid-cols-2 md:col-span-2">
-            <p>
-              Every school has its own website, its own requirements and its own deadlines. Rules differ for
-              EU and non-EU students. Some programmes are free, others cost thousands of euros a year.
-            </p>
-            <p>
-              We collect it, check it against official Danish sources and show you only what applies to
-              <em> you</em> – then help you put your application together.
-            </p>
-          </div>
+          <HeroSide />
         </Container>
       </section>
 
@@ -123,89 +85,79 @@ export default function Home() {
       </section>
 
       {/* How it works */}
-      <section>
+      <section id="how-it-works" className="scroll-mt-24">
         <Container className="py-20">
           <Eyebrow>How it works</Eyebrow>
-          <h2 className="max-w-2xl text-3xl font-semibold sm:text-4xl">From “is this possible?” to submitted application</h2>
-          <div className="mt-10 grid gap-5 md:grid-cols-3">
-            {steps.map((s) => (
-              <Card key={s.n}>
-                <p className="font-[family-name:var(--font-display)] text-3xl text-accent">{s.n}</p>
-                <h3 className="mt-3 text-xl font-semibold">{s.title}</h3>
-                <p className="mt-2 text-ink-soft">{s.body}</p>
-              </Card>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      {/* What's included + price */}
-      <section className="bg-ink text-white">
-        <Container className="grid gap-12 py-20 lg:grid-cols-2">
-          <div>
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-white/60">Two yearly memberships</p>
-            <h2 className="text-3xl font-semibold sm:text-4xl">Find your programme – or let us help you apply.</h2>
-            <p className="mt-5 max-w-md text-white/75">
-              <strong className="text-white">Basic</strong> {site.plans.basic.amountLabel}/{site.plans.basic.interval}: see every
-              programme you can study and what it requires. <strong className="text-white">Premium</strong>{" "}
-              {site.plans.premium.amountLabel}/{site.plans.premium.interval}: we check your documents and help you apply. Cancel any time.
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link href="/signup" className="inline-flex items-center justify-center rounded-full bg-white px-5 py-3 font-medium text-ink hover:bg-paper">
-                Create your account
-              </Link>
-              <Link href="/pricing" className="inline-flex items-center justify-center rounded-full border border-white/25 px-5 py-3 font-medium text-white hover:border-white/60">
-                Compare plans
-              </Link>
-            </div>
-          </div>
-          <ul className="grid gap-3 self-center">
-            {included.map((i) => (
-              <li key={i} className="flex gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-[15px]">
-                <Check light /> {i}
+          <h2 className="max-w-2xl text-3xl font-semibold sm:text-4xl">Your application, one step at a time</h2>
+          <ol className="relative mt-14 grid gap-10 md:grid-cols-3 md:gap-5">
+            {/* Thin stepped line joining the three number circles (desktop) */}
+            <svg
+              aria-hidden
+              viewBox="0 0 600 80"
+              preserveAspectRatio="none"
+              className="pointer-events-none absolute inset-x-0 top-0 z-10 hidden h-20 w-full md:block"
+            >
+              <path d="M100 80 H200 V40 H400 V0 H500" fill="none" stroke="currentColor" strokeWidth="1.5" vectorEffect="non-scaling-stroke" className="text-ink/25" />
+            </svg>
+            {steps.map((s, i) => (
+              <li key={s.n} className={`relative ${stepOffset[i]}`}>
+                {/* Vertical connector between stacked cards (mobile) */}
+                {i < steps.length - 1 && (
+                  <span aria-hidden className="absolute left-1/2 top-full h-10 w-px bg-ink/25 md:hidden" />
+                )}
+                <span className="absolute left-1/2 top-0 z-20 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-ink bg-surface text-sm font-semibold text-ink">
+                  {s.n}
+                </span>
+                <Card className="h-full pt-9 text-center">
+                  <h3 className="text-xl font-semibold">{s.title}</h3>
+                  <p className="mt-2 text-ink-soft">{s.body}</p>
+                </Card>
               </li>
             ))}
-          </ul>
+          </ol>
         </Container>
       </section>
 
-      {/* Guide links */}
-      <section>
+      {/* Plans */}
+      <section className="bg-ink text-white">
         <Container className="py-20">
-          <Eyebrow>Free guide</Eyebrow>
-          <h2 className="text-3xl font-semibold sm:text-4xl">Start with the basics</h2>
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              ["/eu-vs-non-eu", "EU/EEA vs. non-EU", "Who pays tuition, and who needs a residence permit.", "/images/guide-eu.jpg"],
-              ["/admission-requirements", "Admission requirements", "What your diploma and English score need to show.", "/images/guide-requirements.jpg"],
-              ["/deadlines", "Deadlines", "The key dates for September and February intake.", "/images/guide-deadlines.jpg"],
-              ["/cost-of-living", "Cost of living", "Rent, food, transport and what you can earn.", "/images/guide-cost.jpg"],
-            ].map(([href, title, body, img]) => (
-              <Link key={href} href={href} className="group overflow-hidden rounded-[var(--radius-card)] border border-line bg-surface transition-colors hover:border-ink/30">
-                <div className="relative aspect-[4/3] bg-sea-soft">
-                  {img && (
-                    <Image src={img} alt="" fill sizes="(min-width: 1024px) 280px, (min-width: 640px) 50vw, 100vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
-                  )}
-                </div>
-                <div className="p-6">
-                  <h3 className="text-lg font-semibold">{title}</h3>
-                  <p className="mt-2 text-sm text-ink-soft">{body}</p>
-                  <p className="mt-4 text-sm font-medium text-sea group-hover:text-ink">Read →</p>
-                </div>
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-white/60">Plans</p>
+          <h2 className="max-w-2xl text-3xl font-semibold sm:text-4xl">Start free. Get more help when you need it.</h2>
+          <div className="mt-10 grid gap-4 md:grid-cols-3">
+            {plans.map((p) => (
+              <Link
+                key={p.name}
+                href="/pricing"
+                className="group flex flex-col rounded-[var(--radius-card)] border border-white/10 bg-white/5 p-6 transition-colors hover:border-white/30"
+              >
+                <h3 className="text-xl font-semibold">{p.name}</h3>
+                <p className="mt-3 font-[family-name:var(--font-display)] text-4xl font-semibold">
+                  {p.price}
+                  {p.interval && <span className="ml-1 font-sans text-base font-normal text-white/60">/{p.interval}</span>}
+                </p>
+                <p className="mt-3 text-[15px] text-white/75">{p.body}</p>
+                <p className="mt-auto pt-6 text-sm font-medium text-white/80 group-hover:text-white">Compare plans →</p>
               </Link>
             ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* Our story – TODO: replace the placeholder text with the founders' story */}
+      <section>
+        <Container className="grid gap-10 py-20 md:grid-cols-3">
+          <div className="md:col-span-1">
+            <Eyebrow>Our story</Eyebrow>
+            <h2 className="text-3xl font-semibold leading-tight">Why we started NorthStep</h2>
+          </div>
+          <div className="space-y-5 text-lg leading-relaxed text-ink-soft md:col-span-2">
+            <p>[Placeholder – who the founders are and where they come from. Two or three sentences.]</p>
+            <p>[Placeholder – the moment you realised studying abroad was harder than it should be.]</p>
+            <p>[Placeholder – what NorthStep does differently, and the promise you make to students.]</p>
+            <p className="text-base text-muted">— [Founder names]</p>
           </div>
         </Container>
       </section>
     </>
-  );
-}
-
-function Check({ light = false }: { light?: boolean }) {
-  return (
-    <svg width="16" height="16" viewBox="0 0 16 16" className="mt-0.5 shrink-0" aria-hidden>
-      <circle cx="8" cy="8" r="8" fill={light ? "rgba(255,255,255,0.15)" : "#E6EFEE"} />
-      <path d="M4.5 8.2l2.2 2.2 4.8-4.8" fill="none" stroke={light ? "#fff" : "#2F5D62"} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
   );
 }

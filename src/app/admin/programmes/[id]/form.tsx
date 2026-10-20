@@ -98,7 +98,7 @@ export function ProgrammeForm({
             <div className="flex flex-wrap gap-x-5 gap-y-2 text-[15px]">
               {EDUCATION_LEVELS.map((e) => (
                 <label key={e.value} className="flex items-center gap-2">
-                  <input type="checkbox" name="accepted_education_levels" value={e.value} defaultChecked={p?.accepted_education_levels.includes(e.value)} className="h-4 w-4 accent-[#14213D]" />
+                  <input type="checkbox" name="accepted_education_levels" value={e.value} defaultChecked={p?.accepted_education_levels.includes(e.value)} className="h-4 w-4 accent-[#102448]" />
                   {e.label}
                 </label>
               ))}
@@ -116,7 +116,7 @@ export function ProgrammeForm({
             <div className="grid gap-2 text-[15px] sm:grid-cols-2">
               {DOCS.map(([v, l]) => (
                 <label key={v} className="flex items-center gap-2">
-                  <input type="checkbox" name="documents" value={v} defaultChecked={defaultDocs.includes(v)} className="h-4 w-4 accent-[#14213D]" />
+                  <input type="checkbox" name="documents" value={v} defaultChecked={defaultDocs.includes(v)} className="h-4 w-4 accent-[#102448]" />
                   {l}
                 </label>
               ))}
@@ -134,12 +134,12 @@ export function ProgrammeForm({
           </Field>
           <div className="flex flex-col gap-3 text-[15px]">
             <label className="flex items-center gap-2">
-              <input type="checkbox" name="is_published" defaultChecked={p?.is_published} className="h-4 w-4 accent-[#14213D]" />
+              <input type="checkbox" name="is_published" defaultChecked={p?.is_published} className="h-4 w-4 accent-[#102448]" />
               <strong>Published</strong> <span className="text-muted">– visible to members</span>
             </label>
             <label className="flex items-center gap-2">
-              <input type="checkbox" name="is_public_preview" defaultChecked={p?.is_public_preview} className="h-4 w-4 accent-[#14213D]" />
-              <strong>Free preview</strong> <span className="text-muted">– also shown on the public /programmes page</span>
+              <input type="checkbox" name="is_public_preview" defaultChecked={p?.is_public_preview} className="h-4 w-4 accent-[#102448]" />
+              <strong>Free preview</strong> <span className="text-muted">– also shown on the public /denmark/programmes page</span>
             </label>
           </div>
         </Group>

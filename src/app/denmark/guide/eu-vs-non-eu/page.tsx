@@ -16,7 +16,7 @@ const rows = [
 export default function Page() {
   return (
     <GuideLayout
-      current="/eu-vs-non-eu"
+      current="/denmark/guide/eu-vs-non-eu"
       title="EU/EEA vs. non-EU students"
       intro="Your citizenship decides two big things: whether you pay tuition, and whether you need a residence permit. Here’s the difference."
     >

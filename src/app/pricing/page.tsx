@@ -5,7 +5,7 @@ import { PlanCard, Tick } from "@/components/plan-card";
 export const metadata: Metadata = { title: "Pricing" };
 
 const free = [
-  "Guide to studying in Denmark",
+  "Study guide for each country",
   "EU vs. non-EU rules",
   "Key deadlines",
   "Eligibility check",
@@ -35,7 +35,7 @@ export default function PricingPage() {
             ))}
           </ul>
           <div className="mt-auto pt-8">
-            <ButtonLink href="/eligibility" variant="ghost" className="w-full">Check eligibility</ButtonLink>
+            <ButtonLink href="/denmark/eligibility" variant="ghost" className="w-full">Check eligibility</ButtonLink>
           </div>
         </div>
 
@@ -48,7 +48,9 @@ export default function PricingPage() {
         </PlanCard>
       </div>
 
-      <div className="mx-auto mt-12 max-w-2xl rounded-xl border border-line bg-surface px-6 py-5 text-[15px] text-ink-soft">
+      <p className="mt-6 text-center text-sm text-muted">Admission decisions are always made by the schools.</p>
+
+      <div className="mx-auto mt-10 max-w-2xl rounded-xl border border-line bg-surface px-6 py-5 text-[15px] text-ink-soft">
         <p className="font-semibold text-ink">How we make money</p>
         <p className="mt-1">
           Your membership fee, plus a referral fee from some schools when a student we helped enrols. Those

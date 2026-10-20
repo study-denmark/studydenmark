@@ -10,6 +10,7 @@ const items: { href: string; label: string; premium?: boolean }[] = [
   { href: "/dashboard/documents", label: "Documents", premium: true },
   { href: "/dashboard/applications", label: "Applications", premium: true },
   { href: "/onboarding", label: "My profile" },
+  { href: "/account", label: "Account settings" },
 ];
 
 export function DashboardNav({ isAdmin, isPremium }: { isAdmin: boolean; isPremium: boolean }) {

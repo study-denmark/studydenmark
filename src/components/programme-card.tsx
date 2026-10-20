@@ -71,8 +71,8 @@ export function CheckIcon({ ok }: { ok: boolean | null }) {
   if (ok === true)
     return (
       <svg width="16" height="16" viewBox="0 0 16 16" className="mt-0.5 shrink-0" aria-label="OK">
-        <circle cx="8" cy="8" r="8" fill="#E6EFEE" />
-        <path d="M4.5 8.2l2.2 2.2 4.8-4.8" fill="none" stroke="#2F5D62" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx="8" cy="8" r="8" fill="#E8EEF4" />
+        <path d="M4.5 8.2l2.2 2.2 4.8-4.8" fill="none" stroke="#3D6185" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     );
   if (ok === false)

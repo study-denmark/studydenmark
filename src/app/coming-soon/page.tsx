@@ -20,13 +20,13 @@ export default function ComingSoon() {
               <span className="absolute inset-y-0 left-[30%] w-[14%] bg-white" />
               <span className="absolute inset-x-0 top-[42%] h-[16%] bg-white" />
             </span>
-            Study Denmark
+            NorthStep
           </p>
 
           <div className="my-16 max-w-xl">
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-sea">Launching soon</p>
             <h1 className="mt-4 text-5xl leading-[1.04] text-ink sm:text-6xl">
-              Study in Denmark, <span className="italic text-sea">without the guesswork.</span>
+              Make a NorthStep. <span className="italic text-sea">Study abroad, without the guesswork.</span>
             </h1>
             <p className="mt-6 text-lg leading-relaxed text-ink-soft">
               We’re building the simplest way for international students to find out what they can study in Denmark – and
