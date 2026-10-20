@@ -11,7 +11,7 @@ export function CountryLayout({ country, children }: { country: string; children
   const c = getCountry(country);
   return (
     <>
-      <CountrySubnav countryId={c.id} name={c.name} href={c.href ?? "/"} tabs={c.tabs ?? []} />
+      <CountrySubnav flag={c.flag} name={c.name} href={c.href ?? "/"} tabs={c.tabs ?? []} />
       {children}
     </>
   );

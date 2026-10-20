@@ -15,11 +15,8 @@ export default function ComingSoon() {
     <div className="fixed inset-0 z-50 overflow-y-auto bg-paper">
       <div className="grid min-h-full lg:grid-cols-2">
         <div className="flex flex-col justify-between px-6 py-8 sm:px-12 sm:py-12">
-          <p className="flex items-center gap-2.5 font-[family-name:var(--font-display)] text-xl font-semibold text-ink">
-            <span aria-hidden className="relative inline-block h-5 w-7 rounded-[3px] bg-accent">
-              <span className="absolute inset-y-0 left-[30%] w-[14%] bg-white" />
-              <span className="absolute inset-x-0 top-[42%] h-[16%] bg-white" />
-            </span>
+          <p className="flex items-center gap-3 font-[family-name:var(--font-display)] text-xl font-semibold text-ink">
+            <Image src="/images/northstep-mountain.png" alt="" width={1157} height={483} priority className="h-9 w-auto" />
             NorthStep
           </p>
 
@@ -29,8 +26,8 @@ export default function ComingSoon() {
               Make a NorthStep. <span className="italic text-sea">Study abroad, without the guesswork.</span>
             </h1>
             <p className="mt-6 text-lg leading-relaxed text-ink-soft">
-              We’re building the simplest way for international students to find out what they can study in Denmark – and
-              get help applying. Opening very soon.
+              We’re building the simplest way for international students to find out where they can study abroad, and get
+              help applying. Starting with Denmark. Opening very soon.
             </p>
             <div className="mt-10">
               <WaitlistForm />
@@ -44,7 +41,7 @@ export default function ComingSoon() {
           </div>
 
           <p className="text-xs text-muted">
-            © {new Date().getFullYear()} {site.company.name} ·{" "}
+            © {new Date().getFullYear()} {site.name} ·{" "}
             <Link href="/privacy" className="hover:text-ink">Privacy</Link> ·{" "}
             <Link href="/login" className="hover:text-ink">Team login</Link>
           </p>

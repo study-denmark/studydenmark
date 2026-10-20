@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 import { countries } from "@/config/countries";
-import { Flag } from "@/components/flags";
+import { Flag } from "@/components/flag";
 
 /** Country list used by both the desktop dropdown and the mobile menu */
 export function CountryList() {
@@ -13,7 +13,7 @@ export function CountryList() {
       {countries.map((c) => {
         const body = (
           <>
-            <Flag id={c.id} />
+            <Flag code={c.flag} size="sm" />
             <span className="min-w-0 flex-1">
               <span className="block text-[15px] font-medium text-ink">{c.name}</span>
               <span className="block text-xs text-muted">{c.portal}</span>

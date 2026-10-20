@@ -1,5 +1,7 @@
-// All study destinations. To add a country: add an entry here (and a flag in components/flags.tsx).
+// All study destinations. To add a country: add an entry here (and its flag in components/flag.tsx).
 // Waitlist sources must also be allowed in app/actions/waitlist.ts.
+
+import type { FlagCode } from "@/components/flag";
 
 export type GuidePage = {
   href: string;
@@ -20,6 +22,8 @@ export type ProgrammeType = { name: string; duration: string; note?: string };
 export type Country = {
   id: string;
   name: string;
+  /** Flag drawn by components/flag.tsx */
+  flag: FlagCode;
   status: "available" | "coming-soon";
   /** Base path of the country section, e.g. /denmark */
   href?: string;
@@ -35,13 +39,14 @@ export type Country = {
   waitlistSource?: string;
   guide?: GuidePage[];
   programmeTypes?: ProgrammeType[];
-  applicationPeriod?: { label: string; note: string };
+  applicationPeriod?: { label: string };
 };
 
 export const countries: Country[] = [
   {
     id: "denmark",
     name: "Denmark",
+    flag: "DK",
     status: "available",
     href: "/denmark",
     tabs: [
@@ -90,19 +95,19 @@ export const countries: Country[] = [
       },
     ],
     programmeTypes: [
-      { name: "AP degree", duration: "2 yrs" },
-      { name: "Professional bachelor", duration: "3.5 yrs" },
-      { name: "University bachelor", duration: "3 yrs" },
-      { name: "Master’s", duration: "2 yrs", note: "Apply directly to each university; deadlines vary" },
+      { name: "AP degree", duration: "2 years" },
+      { name: "Professional bachelor", duration: "3.5 years" },
+      { name: "University bachelor", duration: "3 years" },
+      { name: "Master’s", duration: "2 years", note: "Apply directly to each university. Deadlines vary." },
     ],
     applicationPeriod: {
       label: "1 Feb – 15 Mar, 12:00 noon Danish time",
-      note: "Bachelor and AP programmes via optagelse.dk",
     },
   },
   {
     id: "sweden",
     name: "Sweden",
+    flag: "SE",
     status: "coming-soon",
     portal: "universityadmissions.se",
     sources: [
@@ -114,6 +119,7 @@ export const countries: Country[] = [
   {
     id: "norway",
     name: "Norway",
+    flag: "NO",
     status: "coming-soon",
     portal: "Søknadsweb",
     sources: [
@@ -125,6 +131,7 @@ export const countries: Country[] = [
   {
     id: "finland",
     name: "Finland",
+    flag: "FI",
     status: "coming-soon",
     portal: "Studyinfo.fi",
     sources: [
@@ -136,6 +143,7 @@ export const countries: Country[] = [
   {
     id: "netherlands",
     name: "Netherlands",
+    flag: "NL",
     status: "coming-soon",
     portal: "Studielink",
     sources: [
