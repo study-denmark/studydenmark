@@ -4,10 +4,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 import type { CountryTab } from "@/config/countries";
+import type { FlagCode } from "@/components/flag";
 import { Container } from "@/components/ui";
-import { Flag } from "@/components/flags";
+import { Flag } from "@/components/flag";
 
-export function CountrySubnav({ countryId, name, href, tabs }: { countryId: string; name: string; href: string; tabs: CountryTab[] }) {
+export function CountrySubnav({ flag, name, href, tabs }: { flag: FlagCode; name: string; href: string; tabs: CountryTab[] }) {
   const pathname = usePathname();
   const activeRef = useRef<HTMLAnchorElement>(null);
 
@@ -20,7 +21,7 @@ export function CountrySubnav({ countryId, name, href, tabs }: { countryId: stri
     <div className="sticky top-16 z-30 border-b border-line bg-paper/90 backdrop-blur">
       <Container className="flex h-14 items-center gap-4 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         <Link href={href} className="flex shrink-0 items-center gap-2 text-[15px] font-semibold text-ink">
-          <Flag id={countryId} />
+          <Flag code={flag} size="md" />
           {name}
         </Link>
         <span aria-hidden className="h-5 w-px shrink-0 bg-line" />

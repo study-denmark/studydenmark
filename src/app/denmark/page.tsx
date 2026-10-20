@@ -41,7 +41,7 @@ export default function DenmarkPage() {
     <>
       {/* Hero */}
       <section className="relative overflow-hidden">
-        <Container className="grid items-center gap-12 pb-20 pt-14 sm:pt-20 lg:grid-cols-[1.15fr_1fr]">
+        <Container className="grid items-center gap-12 pb-16 pt-12 sm:pt-16 lg:grid-cols-[1.15fr_1fr] lg:pt-12">
           <div>
             <Eyebrow>Study in Denmark</Eyebrow>
             <h1 className="text-[2.6rem] leading-[1.05] font-semibold sm:text-6xl">
@@ -77,27 +77,28 @@ export default function DenmarkPage() {
                 className="object-cover"
               />
             </div>
-            <div className="relative mx-4 -mt-16 rounded-[var(--radius-card)] border border-line bg-surface p-4 shadow-[0_30px_60px_-30px_rgba(20,33,61,0.35)] md:absolute md:-top-6 md:left-0 md:mx-0 md:mt-0 md:w-[328px]">
-              <p className="text-[11px] text-muted">Example: high school + IELTS 6.5</p>
-              <p className="mt-0.5 text-xs font-semibold uppercase tracking-[0.12em] text-ink">You can apply for</p>
-              <ul className="mt-2.5 space-y-1.5">
+            {/*
+              Card position: the photo is the right 86% of this column. The card's right edge stops at
+              ~45% of the photo's width (14% + 0.45 × 86% ≈ 53% of the column), so it covers only the
+              boats and buildings, never the cyclist. On mobile it sits below the photo.
+            */}
+            <div className="relative mt-4 rounded-[var(--radius-card)] border border-line bg-surface p-3 shadow-[0_30px_60px_-30px_rgba(20,33,61,0.35)] md:absolute md:-top-6 md:right-[47%] md:mt-0 md:w-[18.5rem] md:max-w-[25rem]">
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-ink">Study levels in Denmark</p>
+              <ul className="mt-2 space-y-1">
                 {denmark.programmeTypes?.map((t) => (
-                  <li key={t.name} className="rounded-md bg-paper px-2.5 py-1.5 text-[13px]">
-                    <div className="flex items-center justify-between">
+                  <li key={t.name} className="rounded-md bg-paper px-2.5 py-1 text-[13px]">
+                    <div className="flex items-center justify-between gap-3">
                       <span className="font-medium">{t.name}</span>
-                      <span className="text-muted">{t.duration}</span>
+                      <span className="shrink-0 text-muted">{t.duration}</span>
                     </div>
                     {t.note && <p className="mt-0.5 text-[11px] leading-snug text-muted">{t.note}</p>}
                   </li>
                 ))}
               </ul>
               {denmark.applicationPeriod && (
-                <>
-                  <p className="mt-2.5 w-full whitespace-nowrap rounded-full bg-accent px-3 py-1.5 text-center text-[12px] text-white sm:text-[13px]">
-                    <span className="font-semibold">Apply:</span> {denmark.applicationPeriod.label}
-                  </p>
-                  <p className="mt-1.5 text-center text-[11px] text-muted">{denmark.applicationPeriod.note}</p>
-                </>
+                <p className="mt-2 w-full whitespace-nowrap rounded-full bg-accent px-2.5 py-1.5 text-center text-[11.5px] text-white">
+                  <span className="font-semibold">Apply:</span> {denmark.applicationPeriod.label}
+                </p>
               )}
             </div>
           </div>
